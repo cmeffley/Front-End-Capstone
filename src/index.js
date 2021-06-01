@@ -1,11 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import firebase from 'firebase/app';
-import firebaseConfig from './helpers/apiKeys';
+import firebase from 'firebase';
+import 'semantic-ui-css/semantic.min.css';
 import './styles/index.scss';
+import App from './App';
+import firebaseConfig from './helpers/apiKeys';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import App from './App';
 
 firebase.initializeApp(firebaseConfig);
 
