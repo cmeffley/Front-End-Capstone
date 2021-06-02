@@ -6,6 +6,7 @@ I want to create an application that will help someone train for a race or creat
 ## Planning
 ### [ERD](https://dbdiagram.io/d/60b2709bb29a09603d171b11)
 
+### [Wireframe](https://www.figma.com/file/n0zW9BFw5XAbdPBJ1HBnHb/Capstone-Trainer?node-id=2%3A56)
 
 #### API Example call to Openweathermap:
 `https://api.openweathermap.org/data/2.5/weather?q=Chattanooga&appid={{api}}&units=imperial`
