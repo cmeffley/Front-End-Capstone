@@ -10,6 +10,8 @@ I want to create an application that will help someone train for a race or creat
 
 ### [Data Flow Chart](https://docs.google.com/presentation/d/1QfsY9q46uwuG7AlJHKZR17Vm-mnCdS1AT9MYEFbkwn8/edit#slide=id.gde5471c49d_0_1)
 
+### [Project Board](https://github.com/cmeffley/front-end-capstone/projects/1)
+
 #### API Example call to Openweathermap:
 `https://api.openweathermap.org/data/2.5/weather?q=Chattanooga&appid={{api}}&units=imperial`
 
