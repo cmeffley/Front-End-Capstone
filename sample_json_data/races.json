@@ -1,0 +1,20 @@
+{
+  "-MbSFI_naTBsdrS98aLk": {
+    "endDate": "July 25, 2021",
+    "firebaseKey": "-MbSFI_naTBsdrS98aLk",
+    "raceDate": "July 25, 2021",
+    "raceDistance": "Half Ironman",
+    "raceLink": "https://www.ironman.com/im703-ohio",
+    "raceName": "Ironman 70.3 Ohio",
+    "startDate": "June 25, 2021"
+  },
+  "-MbSHBgLZUwu6cqQChnW": {
+    "endDate": "October 17, 2021",
+    "firebaseKey": "-MbSHBgLZUwu6cqQChnW",
+    "raceDate": "October 17, 2021",
+    "raceDistance": "5K",
+    "raceLink": "https://sevenbridgesmarathon.com/5k",
+    "raceName": "2 Bridges 5K",
+    "startDate": "August 17, 2021"
+  }
+}

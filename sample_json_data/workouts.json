@@ -1,0 +1,54 @@
+{
+  "-MbSIigUnZ38yb9roOzA": {
+    "actualWork": "I swam 400 yards non stop and doggie paddled the last 100",
+    "averagePace": 4,
+    "completed": true,
+    "day": "Friday",
+    "dueDay": "June 25, 2021",
+    "firebaseKey": "-MbSIigUnZ38yb9roOzA",
+    "plannedWork": "swim 500 yards non stop",
+    "raceId": "-MbSFI_naTBsdrS98aLk",
+    "startDay": "June 25, 2021",
+    "totalMiles": 500,
+    "workoutType": "Swim"
+  },
+  "-MbSMcxfSHD-YbyHhLIp": {
+    "actualWork": "I was unable to complete today's workout",
+    "averagePace": 0,
+    "completed": false,
+    "day": "Sunday",
+    "dueDay": "June 27, 2021",
+    "firebaseKey": "-MbSMcxfSHD-YbyHhLIp",
+    "plannedWork": "bike 25 miles nonstop",
+    "raceId": "-MbSFI_naTBsdrS98aLk",
+    "startDay": "June 27, 2021",
+    "totalMiles": 0,
+    "workoutType": "Bike"
+  },
+  "-MbSNHzPHzGGF5Hp1duu": {
+    "actualWork": "I ran 1 mile and walked 1 mile",
+    "averagePace": 15,
+    "completed": true,
+    "day": "Tuesday",
+    "dueDay": "August 17, 2021",
+    "firebaseKey": "-MbSNHzPHzGGF5Hp1duu",
+    "plannedWork": "run-walk 2 miles at an easy pace",
+    "raceId": "-MbSHBgLZUwu6cqQChnW",
+    "startDay": "August 17, 2021",
+    "totalMiles": 1,
+    "workoutType": "Run"
+  },
+  "-MbSOAyb64S9GTzTyT9V": {
+    "actualWork": "I did a quick workout today instead. I did QW 1",
+    "averagePace": 0,
+    "completed": true,
+    "day": "Thursday",
+    "dueDay": "September 9, 2021",
+    "firebaseKey": "-MbSOAyb64S9GTzTyT9V",
+    "plannedWork": "gym workout: do all the leg machines light weight for 21 reps",
+    "raceId": "-MbSHBgLZUwu6cqQChnW",
+    "startDay": "September 9, 2021",
+    "totalMiles": 0,
+    "workoutType": "Cross"
+  }
+}

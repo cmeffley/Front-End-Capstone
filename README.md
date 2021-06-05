@@ -1,7 +1,9 @@
 # Front End Capstone - 'Trainer'
 
 ### Motivation
-I want to create an application that will help someone train for a race or create a workout plan with an end date/goal. I thoroughly enjoy racing, whether it's cycling, triathlon or running, and although there are a ton of apps already created for this, I would love to try and create my own version. Organizing and planning workouts are key to succeeding in your goals and my hope is that this application will help users succeed. 
+I want to create an application that will help someone train for a race or create a workout plan with an end date/goal. I thoroughly enjoy racing, whether it's cycling, triathlon or running, and although there are a ton of apps already created for this, I would love to try and create my own version. Organizing and planning workouts are key to succeeding in your goals and my hope is that this application will help users succeed.
+
+### [Deployed Site](https://cm-trainer.netlify.app/)
 
 ## Planning
 ### [ERD](https://dbdiagram.io/d/60b2709bb29a09603d171b11)
