@@ -12,7 +12,7 @@ import {
 } from 'reactstrap';
 import { signInUser, signOutUser } from '../helpers/auth';
 
-const NavBar = ({ user }) => {
+const NavBar = ({ coach }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -31,11 +31,11 @@ const NavBar = ({ user }) => {
               <Link className="nav-link" to="/users">Users</Link>
             </NavItem>
           </Nav>
-          { user !== null
+          { coach !== null
             && <div className='auth-btn-container'>
                 {
-                  user ? <Button color='danger' onClick={signOutUser}>SignOut?</Button>
-                    : <Button color='info' onClick={signInUser}>SignIN!</Button>
+                  coach ? <Button color='secondary' onClick={signOutUser}>SignOut?</Button>
+                    : <Button color='primary' onClick={signInUser}>SignIN!</Button>
                 }
               </div>
             }
@@ -45,6 +45,6 @@ const NavBar = ({ user }) => {
   );
 };
 NavBar.propTypes = {
-  user: PropTypes.any
+  coach: PropTypes.any
 };
 export default NavBar;
