@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Collapse,
@@ -14,6 +14,12 @@ import { signOutUser } from '../helpers/auth';
 
 const NavBar = ({ coach, athlete }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const history = useHistory();
+
+  const signOutToHome = () => {
+    signOutUser();
+    history.push('/');
+  };
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -34,7 +40,7 @@ const NavBar = ({ coach, athlete }) => {
           { (coach !== null || athlete !== null)
             && <div className='auth-btn-container'>
                 {
-                  coach || athlete ? <Button color='secondary' onClick={signOutUser}>SignOut?</Button>
+                  coach || athlete ? <Button color='secondary' onClick={signOutToHome}>SignOut?</Button>
                     : ''
                 }
               </div>

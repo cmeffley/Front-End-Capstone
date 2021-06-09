@@ -6,11 +6,11 @@ import { getRacesAthlete, getRacesCoach } from '../helpers/data/raceData';
 function RaceScheduleView({ coach, athlete }) {
   const [athleteRaces, setAthleteRaces] = useState([]);
   console.warn(coach);
-  useEffect((authed) => {
-    if (coach === true && athlete === false) {
-      getRacesCoach(authed.uid).then((response) => setAthleteRaces(response));
+  useEffect(() => {
+    if (coach !== null && athlete === false) {
+      getRacesCoach(coach.uid).then((response) => setAthleteRaces(response));
     } else if (coach === false) {
-      getRacesAthlete(authed.uid).then((response) => setAthleteRaces(response));
+      getRacesAthlete(athlete.uid).then((response) => setAthleteRaces(response));
     }
   }, []);
 

@@ -1,9 +1,17 @@
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Button } from 'reactstrap';
 import { signInUser, signOutUser } from '../helpers/auth';
 
 function LandingPage({ coach, athlete }) {
+  const history = useHistory();
+
+  const signInAndGo = () => {
+    signInUser();
+    history.push('/raceSchedule');
+  };
+
   return (
     <div>
       <h1>Welcome to Trainer</h1>
@@ -11,7 +19,7 @@ function LandingPage({ coach, athlete }) {
           && <div>
             {
               coach ? <Button color='warning' onClick={signOutUser}>Coach SignOut?</Button>
-                : <Button color='info' onClick={signInUser}>Coach Sign In</Button>
+                : <Button color='info' onClick={signInAndGo}>Coach Sign In</Button>
             }
               </div>
       }<br />
@@ -19,7 +27,7 @@ function LandingPage({ coach, athlete }) {
           && <div>
             {
               athlete ? <Button color='danger' onClick={signOutUser}>Athlete SignOut?</Button>
-                : <Button color='success' onClick={signInUser}>Athlete Sign In</Button>
+                : <Button color='success' onClick={signInAndGo}>Athlete Sign In</Button>
             }
               </div>
             }

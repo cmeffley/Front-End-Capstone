@@ -12,16 +12,22 @@ function App() {
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
       if (authed && (authed.uid === process.env.REACT_APP_COACH_UID)) {
-        setCoach(true);
-        setAthlete(false);
-      } else if (authed && (authed.uid !== process.env.REACT_APP_COACH_UID)) {
-        const userInfoObject = {
+        const coachInfoObject = {
           fullName: authed.displayName,
           profileImage: authed.photoURL,
           uid: authed.uid,
           username: authed.email.split('@')[0],
         };
-        setAthlete(userInfoObject);
+        setCoach(coachInfoObject);
+        setAthlete(false);
+      } else if (authed && (authed.uid !== process.env.REACT_APP_COACH_UID)) {
+        const athleteInfoObject = {
+          fullName: authed.displayName,
+          profileImage: authed.photoURL,
+          uid: authed.uid,
+          username: authed.email.split('@')[0],
+        };
+        setAthlete(athleteInfoObject);
         setCoach(false);
       } else if ((coach || coach === null) || (athlete || athlete === null)) {
         setAthlete(false);
