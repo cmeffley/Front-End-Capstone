@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './App.scss';
 import Routes from '../helpers/Routes';
 import NavBar from '../components/NavBar';
+import RacesFormView from '../views/RacesFormView';
 
 function App() {
   const [coach, setCoach] = useState(null);
@@ -48,6 +49,7 @@ function App() {
           athlete={athlete}
         />
       </Router>
+      <RacesFormView/>
     </div>
   );
 }

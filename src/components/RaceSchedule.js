@@ -16,7 +16,7 @@ function RaceSchedule({ athlete, ...raceInfo }) {
         <CardBody>
           <CardText>{raceInfo.raceDistance}</CardText>
           <CardText>{raceInfo.raceDate}</CardText>
-          <CardText>{raceInfo.raceLink}</CardText>
+          <CardText><a href={raceInfo.raceLink}>Race Website</a></CardText>
           <Button color='danger'>Future Delete</Button>
           <Button color='info'>Future Edit</Button>
         </CardBody>

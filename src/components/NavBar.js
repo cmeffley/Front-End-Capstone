@@ -35,7 +35,7 @@ const NavBar = ({ coach, athlete }) => {
               <Link className="nav-link" to="/raceSchedule">Race Schedule</Link>
             </NavItem>
             <NavItem>
-              <Link className="nav-link" to="/users">Users</Link>
+              <Link className="nav-link" to="/addrace">Add Race</Link>
             </NavItem>
           </Nav>
             <div className='auth-btn-container'>

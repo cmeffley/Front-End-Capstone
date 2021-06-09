@@ -15,4 +15,33 @@ const getRacesCoach = (uid) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-export { getRacesAthlete, getRacesCoach };
+const addRaceCoach = (race, uid) => new Promise((resolve, reject) => {
+  axios.post(`${dbUrl}/races.json`, race)
+    .then((response) => {
+      const body = { firebaseKey: response.data.name };
+      axios.patch(`${dbUrl}/races/${response.data.name}.json`, body)
+        .then(() => {
+          getRacesCoach(uid).then((raceArray) => resolve(raceArray));
+        });
+    })
+    .catch((error) => reject(error));
+});
+
+const addRaceAthlete = (race, uid) => new Promise((resolve, reject) => {
+  axios.post(`${dbUrl}/races.json`, race)
+    .then((response) => {
+      const body = { firebaseKey: response.data.name };
+      axios.patch(`${dbUrl}/races/${response.data.name}.json`, body)
+        .then(() => {
+          getRacesAthlete(uid).then((raceArray) => resolve(raceArray));
+        });
+    })
+    .catch((error) => reject(error));
+});
+
+export {
+  getRacesAthlete,
+  getRacesCoach,
+  addRaceCoach,
+  addRaceAthlete
+};

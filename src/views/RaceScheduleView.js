@@ -5,7 +5,6 @@ import { getRacesAthlete, getRacesCoach } from '../helpers/data/raceData';
 
 function RaceScheduleView({ coach, athlete }) {
   const [athleteRaces, setAthleteRaces] = useState([]);
-  console.warn(coach);
   useEffect(() => {
     if (coach !== null && athlete === false) {
       getRacesCoach(coach.uid).then((response) => setAthleteRaces(response));
