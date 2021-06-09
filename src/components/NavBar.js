@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Collapse,
@@ -9,11 +9,18 @@ import {
   Nav,
   NavItem,
   Button,
+  Form
 } from 'reactstrap';
-import { signInUser, signOutUser } from '../helpers/auth';
+import { signOutUser } from '../helpers/auth';
 
-const NavBar = ({ coach }) => {
+const NavBar = ({ coach, athlete }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const history = useHistory();
+
+  const signOutToHome = () => {
+    signOutUser();
+    history.push('/');
+  };
 
   const toggle = () => setIsOpen(!isOpen);
 
@@ -25,17 +32,26 @@ const NavBar = ({ coach }) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <Link className="nav-link" to="/about">About</Link>
+              <Link className="nav-link" to="/raceSchedule">Race Schedule</Link>
             </NavItem>
             <NavItem>
               <Link className="nav-link" to="/users">Users</Link>
             </NavItem>
           </Nav>
-          { coach !== null
+            <div className='auth-btn-container'>
+              <Form>
+                <input
+                  name='city'
+                  type='text'
+                  placeholder='Check Weather'
+                />
+              </Form>
+            </div>
+          { (coach !== null || athlete !== null)
             && <div className='auth-btn-container'>
                 {
-                  coach ? <Button color='secondary' onClick={signOutUser}>SignOut?</Button>
-                    : <Button color='primary' onClick={signInUser}>SignIN!</Button>
+                  coach || athlete ? <Button color='secondary' onClick={signOutToHome}>SignOut?</Button>
+                    : ''
                 }
               </div>
             }
@@ -45,6 +61,7 @@ const NavBar = ({ coach }) => {
   );
 };
 NavBar.propTypes = {
-  coach: PropTypes.any
+  coach: PropTypes.any,
+  athlete: PropTypes.any
 };
 export default NavBar;
