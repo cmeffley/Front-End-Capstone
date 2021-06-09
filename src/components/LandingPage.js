@@ -4,9 +4,6 @@ import { Button } from 'reactstrap';
 import { signInUser, signOutUser } from '../helpers/auth';
 
 function LandingPage({ coach, athlete }) {
-  console.warn(coach);
-  console.warn(athlete);
-
   return (
     <div>
       <h1>Welcome to Trainer</h1>

@@ -10,9 +10,9 @@ import {
   NavItem,
   Button,
 } from 'reactstrap';
-import { signInUser, signOutUser } from '../helpers/auth';
+import { signOutUser } from '../helpers/auth';
 
-const NavBar = ({ coach }) => {
+const NavBar = ({ coach, athlete }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggle = () => setIsOpen(!isOpen);
@@ -25,17 +25,17 @@ const NavBar = ({ coach }) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <Link className="nav-link" to="/about">About</Link>
+              <Link className="nav-link" to="/raceSchedule">Race Schedule</Link>
             </NavItem>
             <NavItem>
               <Link className="nav-link" to="/users">Users</Link>
             </NavItem>
           </Nav>
-          { coach !== null
+          { (coach !== null || athlete !== null)
             && <div className='auth-btn-container'>
                 {
-                  coach ? <Button color='secondary' onClick={signOutUser}>SignOut?</Button>
-                    : <Button color='primary' onClick={signInUser}>SignIN!</Button>
+                  coach || athlete ? <Button color='secondary' onClick={signOutUser}>SignOut?</Button>
+                    : ''
                 }
               </div>
             }
@@ -45,6 +45,7 @@ const NavBar = ({ coach }) => {
   );
 };
 NavBar.propTypes = {
-  coach: PropTypes.any
+  coach: PropTypes.any,
+  athlete: PropTypes.any
 };
 export default NavBar;
