@@ -39,9 +39,23 @@ const addRaceAthlete = (race, uid) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const updateRaceCoach = (races, uid) => new Promise((resolve, reject) => {
+  axios.patch(`${dbUrl}/races/${races.firebaseKey}.json`, races)
+    .then(() => getRacesCoach(uid)).then((racesArray) => resolve(racesArray))
+    .catch((error) => reject(error));
+});
+
+const updateRaceAthlete = (races, uid) => new Promise((resolve, reject) => {
+  axios.patch(`${dbUrl}/races/${races.firebaseKey}.json`, races)
+    .then(() => getRacesAthlete(uid)).then((racesArray) => resolve(racesArray))
+    .catch((error) => reject(error));
+});
+
 export {
   getRacesAthlete,
   getRacesCoach,
   addRaceCoach,
-  addRaceAthlete
+  addRaceAthlete,
+  updateRaceCoach,
+  updateRaceAthlete
 };

@@ -4,22 +4,22 @@ import RacesForm from '../components/RacesForm';
 import { getRacesCoach, getRacesAthlete } from '../helpers/data/raceData';
 
 function RacesFormView({ coach, athlete }) {
-  const [editRaces, setEditRaces] = useState([]);
-  console.warn(editRaces);
+  const [createRaces, setCreateRaces] = useState([]);
   useEffect(() => {
     if (coach !== null && athlete === false) {
-      getRacesCoach(coach.uid).then((response) => setEditRaces(response));
+      getRacesCoach(coach.uid).then((response) => setCreateRaces(response));
     } else if (coach === false) {
-      getRacesAthlete(athlete.uid).then((response) => setEditRaces(response));
+      getRacesAthlete(athlete.uid).then((response) => setCreateRaces(response));
     }
   }, []);
   return (
     <div>
       <RacesForm
+        formTitle='Add Race'
         coach={coach}
         athlete={athlete}
-        editRaces={editRaces}
-        setEditRaces={setEditRaces}
+        createRaces={createRaces}
+        setCreateRaces={setCreateRaces}
       />
     </div>
   );

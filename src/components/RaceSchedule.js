@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -7,8 +7,11 @@ import {
   CardTitle,
   Button
 } from 'reactstrap';
+import RacesForm from '../components/RacesForm';
 
-function RaceSchedule({ athlete, ...raceInfo }) {
+function RaceSchedule({ athlete, setCreateRaces, ...raceInfo }) {
+  const [editRace, setEditRace] = useState(false);
+  console.warn(setEditRace);
   return (
     <div>
       <Card>
@@ -19,6 +22,13 @@ function RaceSchedule({ athlete, ...raceInfo }) {
           <CardText><a href={raceInfo.raceLink}>Race Website</a></CardText>
           <Button color='danger'>Future Delete</Button>
           <Button color='info'>Future Edit</Button>
+          {
+            editRace && <RacesForm
+              formTitle='Edit Race'
+              {...raceInfo}
+              setCreateRaces={setCreateRaces}
+              />
+          }
         </CardBody>
       </Card>
     </div>
@@ -27,7 +37,8 @@ function RaceSchedule({ athlete, ...raceInfo }) {
 
 RaceSchedule.propTypes = {
   raceInfo: PropTypes.array,
-  athlete: PropTypes.any
+  athlete: PropTypes.any,
+  setCreateRaces: PropTypes.func
 };
 
 export default RaceSchedule;
