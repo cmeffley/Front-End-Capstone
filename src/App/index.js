@@ -4,13 +4,11 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './App.scss';
 import Routes from '../helpers/Routes';
 import NavBar from '../components/NavBar';
-import { getRacesAthlete, getRacesCoach } from '../helpers/data/raceData';
 
 function App() {
   const [coach, setCoach] = useState(null);
   const [athlete, setAthlete] = useState(null);
-  getRacesCoach();
-  getRacesAthlete();
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
       if (authed && (authed.uid === process.env.REACT_APP_COACH_UID)) {
