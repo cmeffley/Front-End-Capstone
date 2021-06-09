@@ -6,19 +6,31 @@ import Routes from '../helpers/Routes';
 import NavBar from '../components/NavBar';
 
 function App() {
-  const [coach, setCoach] = useState(false);
+  const [coach, setCoach] = useState(null);
+  const [athlete, setAthlete] = useState(null);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
-      if (authed) {
-        const userInfoObject = {
+      if (authed && (authed.uid === process.env.REACT_APP_COACH_UID)) {
+        const coachInfoObject = {
           fullName: authed.displayName,
           profileImage: authed.photoURL,
-          username: authed.email.split('@gmail.com')[0],
-          uid: authed.uid
+          uid: authed.uid,
+          username: authed.email.split('@')[0],
         };
-        setCoach(userInfoObject);
-      } else if (coach || coach === null) {
+        setCoach(coachInfoObject);
+        setAthlete(false);
+      } else if (authed && (authed.uid !== process.env.REACT_APP_COACH_UID)) {
+        const athleteInfoObject = {
+          fullName: authed.displayName,
+          profileImage: authed.photoURL,
+          uid: authed.uid,
+          username: authed.email.split('@')[0],
+        };
+        setAthlete(athleteInfoObject);
+        setCoach(false);
+      } else if ((coach || coach === null) || (athlete || athlete === null)) {
+        setAthlete(false);
         setCoach(false);
       }
     });
@@ -27,8 +39,14 @@ function App() {
   return (
     <div className='App'>
        <Router>
-        <NavBar coach={coach}/>
-        <Routes coach={coach}/>
+        <NavBar
+          coach={coach}
+          athlete={athlete}
+        />
+        <Routes
+          coach={coach}
+          athlete={athlete}
+        />
       </Router>
     </div>
   );
