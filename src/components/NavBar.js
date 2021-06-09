@@ -9,6 +9,7 @@ import {
   Nav,
   NavItem,
   Button,
+  Form
 } from 'reactstrap';
 import { signOutUser } from '../helpers/auth';
 
@@ -37,6 +38,15 @@ const NavBar = ({ coach, athlete }) => {
               <Link className="nav-link" to="/users">Users</Link>
             </NavItem>
           </Nav>
+            <div className='auth-btn-container'>
+              <Form>
+                <input
+                  name='city'
+                  type='text'
+                  placeholder='Check Weather'
+                />
+              </Form>
+            </div>
           { (coach !== null || athlete !== null)
             && <div className='auth-btn-container'>
                 {
