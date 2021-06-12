@@ -43,19 +43,19 @@ function RacesForm({
 
   const updateSubmit = (e) => {
     e.preventDefault();
-    if (addRaces.firebaseKey && coach.uid) {
-      updateRaceCoach(addRaces, coach.uid).then((racesArray) => setAthleteRaces(racesArray));
-    } else if (addRaces.firebaseKey && athlete.uid) {
-      updateRaceAthlete(addRaces, athlete.uid).then((racesArray) => setAthleteRaces(racesArray));
+    if (addRaces.firebaseKey && coach.coachUid) {
+      updateRaceCoach(addRaces, coach.coachUid).then((racesArray) => setAthleteRaces(racesArray));
+    } else if (addRaces.firebaseKey && athlete.athleteUid) {
+      updateRaceAthlete(addRaces, athlete.athleteUid).then((racesArray) => setAthleteRaces(racesArray));
     }
   };
 
   const addSubmit = (e) => {
     e.preventDefault();
     if (coach !== null && athlete === false) {
-      addRaceCoach(addRaces, coach.uid).then((racesArray) => setAddRaces(racesArray));
+      addRaceCoach(addRaces, coach.coachUid).then((racesArray) => setAddRaces(racesArray));
     } else if (coach === false) {
-      addRaceAthlete(addRaces, athlete.uid).then((racesArray) => setAddRaces(racesArray));
+      addRaceAthlete(addRaces, athlete.athleteUid).then((racesArray) => setAddRaces(racesArray));
 
       setAddRaces({
         raceName: '',
@@ -68,13 +68,13 @@ function RacesForm({
       });
     }
   };
+
   return (
     <div>
       <Form
         className='raceInputForm'
         autoComplete='off'
       >
-        {/* Put a select menu that reads all the athletes from firebase */}
         <h2>{formTitle}</h2>
         <Label>Race Name</Label>
         <Input

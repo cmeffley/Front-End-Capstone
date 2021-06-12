@@ -1,6 +1,3 @@
-// make a get request to FB that indexes on the athlete UID at the /athlete.json endpoint
-// if you don;t get anything back, you know that the athlete does not exist, so you need to post them to Firebase
-// if you get something back, then you want to set your athlete with that data
 import axios from 'axios';
 import firebaseConfig from '../apiKeys';
 
@@ -18,19 +15,19 @@ const addAthlete = (athlete) => new Promise((resolve, reject) => {
       const body = { firebaseKey: response.data.name };
       axios.patch(`${dbUrl}/athlete/${response.data.name}.json`, body)
         .then(() => {
-          getAthletes().then((athleteArray) => resolve(athleteArray));
+          resolve({ ...athlete, ...body });
         });
     })
     .catch((error) => reject(error));
 });
 
-const getSingleAthlete = (uid) => new Promise((resolve, reject) => {
+const getSingleAthlete = (uid, athleteObject) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/athlete.json?orderBy="athleteUid"&equalTo="${uid}"`)
     .then((response) => {
-      if (response.data) {
+      if (Object.keys(response.data).length) {
         resolve(Object.values(response.data));
       } else {
-        resolve([]);
+        addAthlete(athleteObject).then(resolve);
       }
     }).catch((error) => reject(error));
 });
