@@ -21,6 +21,7 @@ function RaceScheduleView({ coach, athlete }) {
           {...raceInfo}
           coach={coach}
           athlete={athlete}
+          setAthleteRaces={setAthleteRaces}
         />
       ))}
     </div>

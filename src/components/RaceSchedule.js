@@ -7,11 +7,30 @@ import {
   CardTitle,
   Button
 } from 'reactstrap';
-import RacesForm from '../components/RacesForm';
+import RacesForm from './RacesForm';
+import { deleteRaceAthlete, deleteRaceCoach } from '../helpers/data/raceData';
 
-function RaceSchedule({ athlete, setCreateRaces, ...raceInfo }) {
+function RaceSchedule({
+  coach, athlete, setAthleteRaces, ...raceInfo
+}) {
   const [editRace, setEditRace] = useState(false);
-  console.warn(setEditRace);
+
+  const handleClick = (type) => {
+    switch (type) {
+      case 'edit':
+        setEditRace((prevState) => !prevState);
+        break;
+      case 'athleteDelete':
+        deleteRaceAthlete(raceInfo.firebaseKey, athlete.uid).then((racesArray) => setAthleteRaces(racesArray));
+        break;
+      case 'coachDelete':
+        deleteRaceCoach(raceInfo.firebaseKey, coach.uid).then((racesArray) => setAthleteRaces(racesArray));
+        break;
+      default:
+        console.warn('Keep Being Awesome!');
+    }
+  };
+
   return (
     <div>
       <Card>
@@ -20,13 +39,16 @@ function RaceSchedule({ athlete, setCreateRaces, ...raceInfo }) {
           <CardText>{raceInfo.raceDistance}</CardText>
           <CardText>{raceInfo.raceDate}</CardText>
           <CardText><a href={raceInfo.raceLink}>Race Website</a></CardText>
-          <Button color='danger'>Future Delete</Button>
-          <Button color='info'>Future Edit</Button>
+          {athlete ? <Button color='danger' onClick={() => handleClick('athleteDelete')}>Delete</Button> : ''}
+          {coach ? <Button color='success' onClick={() => handleClick('coachDelete')}>Delete</Button> : ''}
+          <Button color='info' onClick={() => handleClick('edit')}>
+            {editRace ? 'Close Form' : 'Edit Form'}
+          </Button>
           {
             editRace && <RacesForm
               formTitle='Edit Race'
               {...raceInfo}
-              setCreateRaces={setCreateRaces}
+              setAthleteRaces={setAthleteRaces}
               />
           }
         </CardBody>
@@ -38,7 +60,8 @@ function RaceSchedule({ athlete, setCreateRaces, ...raceInfo }) {
 RaceSchedule.propTypes = {
   raceInfo: PropTypes.array,
   athlete: PropTypes.any,
-  setCreateRaces: PropTypes.func
+  coach: PropTypes.any,
+  setAthleteRaces: PropTypes.func
 };
 
 export default RaceSchedule;

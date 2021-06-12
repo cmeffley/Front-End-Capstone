@@ -51,11 +51,25 @@ const updateRaceAthlete = (races, uid) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const deleteRaceCoach = (firebaseKey, uid) => new Promise((resolve, reject) => {
+  axios.delete(`${dbUrl}/races/${firebaseKey}.json`)
+    .then(() => getRacesCoach(uid).then((racesArray) => resolve(racesArray)))
+    .catch((error) => reject(error));
+});
+
+const deleteRaceAthlete = (firebaseKey, uid) => new Promise((resolve, reject) => {
+  axios.delete(`${dbUrl}/races/${firebaseKey}.json`)
+    .then(() => getRacesAthlete(uid).then((racesArray) => resolve(racesArray)))
+    .catch((error) => reject(error));
+});
+
 export {
   getRacesAthlete,
   getRacesCoach,
   addRaceCoach,
   addRaceAthlete,
   updateRaceCoach,
-  updateRaceAthlete
+  updateRaceAthlete,
+  deleteRaceCoach,
+  deleteRaceAthlete
 };
