@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -12,6 +12,7 @@ import {
   addRaceCoach,
   addRaceAthlete
 } from '../helpers/data/raceData';
+import { getAthletes } from '../helpers/data/athleteData';
 
 function RacesForm({
   coach, athlete, createRaces, setAthleteRaces, formTitle, ...raceInfo
@@ -23,10 +24,15 @@ function RacesForm({
     raceLink: raceInfo?.raceLink || '',
     startDate: raceInfo?.startDate || '',
     endDate: raceInfo?.endDate || '',
-    athleteUid: athlete.uid || coach.uid,
-    coachUid: coach.uid || athlete.uid,
+    athleteUid: athlete.athleteUid || '',
+    coachUid: coach.coachUid || '',
     firebaseKey: raceInfo?.firebaseKey || null
   });
+  const [selectAthlete, setSelectAthlete] = useState([]);
+
+  useEffect(() => {
+    getAthletes().then((response) => setSelectAthlete(response));
+  }, []);
 
   const handleInputChange = (e) => {
     setAddRaces((prevState) => ({
@@ -68,6 +74,7 @@ function RacesForm({
         className='raceInputForm'
         autoComplete='off'
       >
+        {/* Put a select menu that reads all the athletes from firebase */}
         <h2>{formTitle}</h2>
         <Label>Race Name</Label>
         <Input
@@ -111,6 +118,19 @@ function RacesForm({
           value={addRaces.endDate}
           onChange={handleInputChange}
         />
+        <Input
+          type='select'
+          name='athleteUid'
+          onChange={handleInputChange}
+          >
+          <option hidden value=''>Select Athlete</option>
+            {selectAthlete.length && selectAthlete.map((athletes) => <option
+              key={athletes.athleteUid}
+              value={athletes.athleteUid}
+              >
+                {athlete.fullName}
+              </option>)}
+        </Input>
         <Button color='primary' type='submit' onSubmit={updateSubmit}>Update</Button>
         <Button color='secondary' type='submit' onSubmit={addSubmit}>Add New Race</Button>
       </Form>

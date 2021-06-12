@@ -7,9 +7,9 @@ function RacesFormView({ coach, athlete }) {
   const [createRaces, setCreateRaces] = useState([]);
   useEffect(() => {
     if (coach !== null && athlete === false) {
-      getRacesCoach(coach.uid).then((response) => setCreateRaces(response));
+      getRacesCoach(coach.coachUid).then((response) => setCreateRaces(response));
     } else if (coach === false) {
-      getRacesAthlete(athlete.uid).then((response) => setCreateRaces(response));
+      getRacesAthlete(athlete.athleteUid).then((response) => setCreateRaces(response));
     }
   }, []);
   return (

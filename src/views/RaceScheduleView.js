@@ -7,9 +7,9 @@ function RaceScheduleView({ coach, athlete }) {
   const [athleteRaces, setAthleteRaces] = useState([]);
   useEffect(() => {
     if (coach !== null && athlete === false) {
-      getRacesCoach(coach.uid).then((response) => setAthleteRaces(response));
+      getRacesCoach(coach.coachUid).then((response) => setAthleteRaces(response));
     } else if (coach === false) {
-      getRacesAthlete(athlete.uid).then((response) => setAthleteRaces(response));
+      getRacesAthlete(athlete.athleteUid).then((response) => setAthleteRaces(response));
     }
   }, []);
 

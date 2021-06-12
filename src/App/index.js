@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './App.scss';
 import Routes from '../helpers/Routes';
 import NavBar from '../components/NavBar';
+import { getSingleAthlete, addAthlete } from '../helpers/data/athleteData';
 
 function App() {
   const [coach, setCoach] = useState(null);
@@ -15,7 +16,7 @@ function App() {
         const coachInfoObject = {
           fullName: authed.displayName,
           profileImage: authed.photoURL,
-          uid: authed.uid,
+          coachUid: authed.uid,
           username: authed.email.split('@')[0],
         };
         setCoach(coachInfoObject);
@@ -24,10 +25,17 @@ function App() {
         const athleteInfoObject = {
           fullName: authed.displayName,
           profileImage: authed.photoURL,
-          uid: authed.uid,
+          athleteUid: authed.uid,
           username: authed.email.split('@')[0],
         };
-        setAthlete(athleteInfoObject);
+        // Make sure to check that the athlete does not already exist in Firebase
+        // create an call to the API to create an athlete in Firebase
+        // .then() setAthlete from respsonse
+        if (authed.uid) {
+          getSingleAthlete(authed.uid, athleteInfoObject).then((response) => setAthlete(response));
+        } else {
+          addAthlete(athleteInfoObject).then((response) => getSingleAthlete(response)).then((response) => setAthlete(response));
+        }
         setCoach(false);
       } else if ((coach || coach === null) || (athlete || athlete === null)) {
         setAthlete(false);

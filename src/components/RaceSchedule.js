@@ -21,10 +21,10 @@ function RaceSchedule({
         setEditRace((prevState) => !prevState);
         break;
       case 'athleteDelete':
-        deleteRaceAthlete(raceInfo.firebaseKey, athlete.uid).then((racesArray) => setAthleteRaces(racesArray));
+        deleteRaceAthlete(raceInfo.firebaseKey, athlete.athleteUid).then((racesArray) => setAthleteRaces(racesArray));
         break;
       case 'coachDelete':
-        deleteRaceCoach(raceInfo.firebaseKey, coach.uid).then((racesArray) => setAthleteRaces(racesArray));
+        deleteRaceCoach(raceInfo.firebaseKey, coach.coachUid).then((racesArray) => setAthleteRaces(racesArray));
         break;
       default:
         console.warn('Keep Being Awesome!');
@@ -42,7 +42,7 @@ function RaceSchedule({
           {coach ? <Button color='success' onClick={() => handleClick('coachDelete')}>Delete</Button>
             : <Button color='danger' onClick={() => handleClick('athleteDelete')}>Delete</Button>}
           <Button color='info' onClick={() => handleClick('edit')}>
-            {editRace ? 'Close Form' : 'Edit Form'}
+            {editRace ? 'Close Form' : 'Edit Race'}
           </Button>
           {
             editRace && <RacesForm
