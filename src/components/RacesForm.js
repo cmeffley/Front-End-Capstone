@@ -23,8 +23,8 @@ function RacesForm({
     raceLink: raceInfo?.raceLink || '',
     startDate: raceInfo?.startDate || '',
     endDate: raceInfo?.endDate || '',
-    athleteUid: athlete.uid || '',
-    coachUid: coach.uid || '',
+    athleteUid: athlete.uid || coach.uid,
+    coachUid: coach.uid || athlete.uid,
     firebaseKey: raceInfo?.firebaseKey || null
   });
 

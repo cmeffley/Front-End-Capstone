@@ -39,8 +39,8 @@ function RaceSchedule({
           <CardText>{raceInfo.raceDistance}</CardText>
           <CardText>{raceInfo.raceDate}</CardText>
           <CardText><a href={raceInfo.raceLink}>Race Website</a></CardText>
-          {athlete ? <Button color='danger' onClick={() => handleClick('athleteDelete')}>Delete</Button> : ''}
-          {coach ? <Button color='success' onClick={() => handleClick('coachDelete')}>Delete</Button> : ''}
+          {coach ? <Button color='success' onClick={() => handleClick('coachDelete')}>Delete</Button>
+            : <Button color='danger' onClick={() => handleClick('athleteDelete')}>Delete</Button>}
           <Button color='info' onClick={() => handleClick('edit')}>
             {editRace ? 'Close Form' : 'Edit Form'}
           </Button>
