@@ -13,6 +13,7 @@ import {
   addRaceAthlete
 } from '../helpers/data/raceData';
 import { getAthletes } from '../helpers/data/athleteData';
+import { getCoaches } from '../helpers/data/coachData';
 
 function RacesForm({
   coach, athlete, createRaces, setAthleteRaces, formTitle, ...raceInfo
@@ -29,9 +30,11 @@ function RacesForm({
     firebaseKey: raceInfo?.firebaseKey || null
   });
   const [selectAthlete, setSelectAthlete] = useState([]);
+  const [selectCoach, setSelectCoach] = useState([]);
 
   useEffect(() => {
     getAthletes().then((response) => setSelectAthlete(response));
+    getCoaches().then((response) => setSelectCoach(response));
   }, []);
 
   const handleInputChange = (e) => {
@@ -118,6 +121,19 @@ function RacesForm({
           value={addRaces.endDate}
           onChange={handleInputChange}
         />
+        <Input
+          type='select'
+          name='coachUid'
+          onChange={handleInputChange}
+          >
+          <option hidden value=''>Select Coach</option>
+            {selectCoach.length && selectCoach.map((coaches) => <option
+              key={coaches.coachUid}
+              value={coaches.coachUid}
+              >
+                {coach.fullName}
+              </option>)}
+        </Input>
         <Input
           type='select'
           name='athleteUid'

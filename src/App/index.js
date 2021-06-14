@@ -1,14 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import firebase from 'firebase';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './App.scss';
 import Routes from '../helpers/Routes';
 import NavBar from '../components/NavBar';
 import { getSingleAthlete } from '../helpers/data/athleteData';
+import { getSingleCoach } from '../helpers/data/coachData';
 
 function App() {
   const [coach, setCoach] = useState(null);
   const [athlete, setAthlete] = useState(null);
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
@@ -19,7 +28,12 @@ function App() {
           coachUid: authed.uid,
           username: authed.email.split('@')[0],
         };
-        setCoach(coachInfoObject);
+        getSingleCoach(authed.uid, coachInfoObject).then((response) => {
+          if (isMounted.current) {
+            setCoach(response);
+          }
+          isMounted.current = true;
+        });
         setAthlete(false);
       } else if (authed && (authed.uid !== process.env.REACT_APP_COACH_UID)) {
         const athleteInfoObject = {
@@ -28,8 +42,12 @@ function App() {
           athleteUid: authed.uid,
           username: authed.email.split('@')[0],
         };
-        getSingleAthlete(authed.uid, athleteInfoObject).then((response) => setAthlete(response));
-        console.warn(athlete);
+        getSingleAthlete(authed.uid, athleteInfoObject).then((response) => {
+          if (isMounted.current) {
+            setAthlete(response);
+          }
+          isMounted.current = true;
+        });
         setCoach(false);
       } else if ((coach || coach === null) || (athlete || athlete === null)) {
         setAthlete(false);
