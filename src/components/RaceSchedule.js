@@ -60,7 +60,7 @@ function RaceSchedule({
 }
 
 RaceSchedule.propTypes = {
-  raceInfo: PropTypes.array,
+  raceInfo: PropTypes.object,
   athlete: PropTypes.any,
   coach: PropTypes.any,
   setRaces: PropTypes.func

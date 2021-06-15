@@ -10,7 +10,9 @@
     "raceId": "-MbSFI_naTBsdrS98aLk",
     "startDay": "June 25, 2021",
     "totalMiles": 500,
-    "workoutType": "Swim"
+    "workoutType": "Swim",
+    "athleteUid": "Ve9GIoEnQ5YgrnGl4nafimyXMTE2",
+    "coachUid": "yUuLS42kujRdkyU0U6RVTlIulaN2"
   },
   "-MbSMcxfSHD-YbyHhLIp": {
     "actualWork": "I was unable to complete today's workout",
@@ -23,7 +25,9 @@
     "raceId": "-MbSFI_naTBsdrS98aLk",
     "startDay": "June 27, 2021",
     "totalMiles": 0,
-    "workoutType": "Bike"
+    "workoutType": "Bike",
+    "athleteUid": "Ve9GIoEnQ5YgrnGl4nafimyXMTE2",
+    "coachUid": "yUuLS42kujRdkyU0U6RVTlIulaN2"
   },
   "-MbSNHzPHzGGF5Hp1duu": {
     "actualWork": "I ran 1 mile and walked 1 mile",
@@ -36,7 +40,9 @@
     "raceId": "-MbSHBgLZUwu6cqQChnW",
     "startDay": "August 17, 2021",
     "totalMiles": 1,
-    "workoutType": "Run"
+    "workoutType": "Run",
+    "athleteUid": "Ve9GIoEnQ5YgrnGl4nafimyXMTE2",
+    "coachUid": "yUuLS42kujRdkyU0U6RVTlIulaN2"
   },
   "-MbSOAyb64S9GTzTyT9V": {
     "actualWork": "I did a quick workout today instead. I did QW 1",
@@ -49,6 +55,8 @@
     "raceId": "-MbSHBgLZUwu6cqQChnW",
     "startDay": "September 9, 2021",
     "totalMiles": 0,
-    "workoutType": "Cross"
+    "workoutType": "Cross",
+    "athleteUid": "Ve9GIoEnQ5YgrnGl4nafimyXMTE2",
+    "coachUid": "yUuLS42kujRdkyU0U6RVTlIulaN2"
   }
 }
