@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import RaceScheduleView from '../views/RaceScheduleView';
 import LandingView from '../views/LandingView';
 import RacesFormView from '../views/RacesFormView';
+import WorkoutsView from '../views/WorkoutsView';
 
 function Routes({ coach, athlete }) {
   return (
@@ -14,6 +15,8 @@ function Routes({ coach, athlete }) {
         <Route exact path="/raceSchedule" component={() => <RaceScheduleView
           coach={coach} athlete={athlete} />} />
         <Route exact path="/addrace" component={() => <RacesFormView
+          coach={coach} athlete={athlete}/>} />
+        <Route exact path="/workouts" component={() => <WorkoutsView
           coach={coach} athlete={athlete}/>} />
       </Switch>
     </div>
