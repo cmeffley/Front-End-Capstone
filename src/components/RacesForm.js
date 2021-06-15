@@ -25,8 +25,8 @@ function RacesForm({
     raceLink: raceInfo?.raceLink || '',
     startDate: raceInfo?.startDate || '',
     endDate: raceInfo?.endDate || '',
-    athleteUid: raceInfo?.athleteUid || '',
-    coachUid: raceInfo?.coachUid || '',
+    athleteUid: raceInfo?.athleteUid || athlete.athleteUid,
+    coachUid: raceInfo?.coachUid || coach.coachUid,
     firebaseKey: raceInfo?.firebaseKey || null
   });
   const [selectAthlete, setSelectAthlete] = useState([]);
@@ -46,9 +46,9 @@ function RacesForm({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (addRaces.firebaseKey && raceInfo.coachUid) {
+    if (addRaces.firebaseKey && raceInfo.coachUid && raceInfo.athleteUid) {
       updateRaceCoach(addRaces, raceInfo.coachUid).then((racesArray) => setRaces(racesArray));
-    } else if (addRaces.firebaseKey && raceInfo.athleteUid) {
+    } else if (addRaces.firebaseKey && raceInfo.athleteUid && raceInfo.coachUid) {
       updateRaceAthlete(addRaces, raceInfo.athleteUid).then((racesArray) => setRaces(racesArray));
     } else if (coach !== null && athlete === false) {
       addRaceCoach(addRaces, raceInfo.coachUid).then((racesArray) => setAddRaces(racesArray));
@@ -117,7 +117,8 @@ function RacesForm({
           value={addRaces.endDate}
           onChange={handleInputChange}
         />
-        <Input
+        { coach
+          ? '' : <Input
           type='select'
           name='coachUid'
           onChange={handleInputChange}
@@ -130,7 +131,9 @@ function RacesForm({
                 {coaches.fullName}
               </option>)}
         </Input>
-        <Input
+        }
+        { athlete
+          ? '' : <Input
           type='select'
           name='athleteUid'
           onChange={handleInputChange}
@@ -143,6 +146,7 @@ function RacesForm({
                 {athletes.fullName}
               </option>)}
         </Input>
+        }
         <Button color='primary' type='submit'>Submit</Button>
       </Form>
     </div>

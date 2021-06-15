@@ -48,6 +48,8 @@ function RaceSchedule({
             editRace && <RacesForm
               formTitle='Edit Race'
               {...raceInfo}
+              coach={coach}
+              athlete={athlete}
               setRaces={setRaces}
               />
           }
