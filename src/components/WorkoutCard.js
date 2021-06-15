@@ -19,7 +19,7 @@ function WorkoutCard({ coach, athlete, ...workoutInfo }) {
           <CardText>{workoutInfo.workoutType}</CardText>
           <CardText>{workoutInfo.plannedWork}</CardText>
           <Label check>
-            <Input type='checkbox' />{workoutInfo.completed} Completed
+            <Input type='checkbox' checked={workoutInfo.completed}/>Completed
           </Label>
           <CardText>{workoutInfo.actualWork}</CardText>
           <CardText>{workoutInfo.totalMiles}</CardText>
