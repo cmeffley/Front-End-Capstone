@@ -25,7 +25,7 @@ const getSingleAthlete = (uid, athleteObject) => new Promise((resolve, reject) =
   axios.get(`${dbUrl}/athlete.json?orderBy="athleteUid"&equalTo="${uid}"`)
     .then((response) => {
       if (Object.keys(response.data).length) {
-        resolve(Object.values(response.data));
+        resolve(Object.values(response.data)[0]);
       } else {
         addAthlete(athleteObject).then(resolve);
       }

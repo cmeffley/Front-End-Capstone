@@ -25,7 +25,7 @@ const getSingleCoach = (uid, coachObject) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/coach.json?orderBy="coachUid"&equalTo="${uid}"`)
     .then((response) => {
       if (Object.keys(response.data).length) {
-        resolve(Object.values(response.data));
+        resolve(Object.values(response.data)[0]);
       } else {
         addCoach(coachObject).then(resolve);
       }

@@ -16,7 +16,7 @@ import { getAthletes } from '../helpers/data/athleteData';
 import { getCoaches } from '../helpers/data/coachData';
 
 function RacesForm({
-  coach, athlete, createRaces, setRaces, formTitle, ...raceInfo
+  coach, athlete, setRaces, formTitle, ...raceInfo
 }) {
   const [addRaces, setAddRaces] = useState({
     raceName: raceInfo?.raceName || '',
@@ -25,8 +25,8 @@ function RacesForm({
     raceLink: raceInfo?.raceLink || '',
     startDate: raceInfo?.startDate || '',
     endDate: raceInfo?.endDate || '',
-    athleteUid: athlete.athleteUid || '',
-    coachUid: coach.coachUid || '',
+    athleteUid: raceInfo?.athleteUid || '',
+    coachUid: raceInfo?.coachUid || '',
     firebaseKey: raceInfo?.firebaseKey || null
   });
   const [selectAthlete, setSelectAthlete] = useState([]);
@@ -44,21 +44,16 @@ function RacesForm({
     }));
   };
 
-  const updateSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    if (addRaces.firebaseKey && coach.coachUid) {
-      updateRaceCoach(addRaces, coach.coachUid).then((racesArray) => setRaces(racesArray));
-    } else if (addRaces.firebaseKey && athlete.athleteUid) {
-      updateRaceAthlete(addRaces, athlete.athleteUid).then((racesArray) => setRaces(racesArray));
-    }
-  };
-
-  const addSubmit = (e) => {
-    e.preventDefault();
-    if (coach !== null && athlete === false) {
-      addRaceCoach(addRaces, coach.coachUid).then((racesArray) => setAddRaces(racesArray));
+    if (addRaces.firebaseKey && raceInfo.coachUid) {
+      updateRaceCoach(addRaces, raceInfo.coachUid).then((racesArray) => setRaces(racesArray));
+    } else if (addRaces.firebaseKey && raceInfo.athleteUid) {
+      updateRaceAthlete(addRaces, raceInfo.athleteUid).then((racesArray) => setRaces(racesArray));
+    } else if (coach !== null && athlete === false) {
+      addRaceCoach(addRaces, raceInfo.coachUid).then((racesArray) => setAddRaces(racesArray));
     } else if (coach === false) {
-      addRaceAthlete(addRaces, athlete.athleteUid).then((racesArray) => setAddRaces(racesArray));
+      addRaceAthlete(addRaces, raceInfo.athleteUid).then((racesArray) => setAddRaces(racesArray));
 
       setAddRaces({
         raceName: '',
@@ -77,6 +72,7 @@ function RacesForm({
       <Form
         className='raceInputForm'
         autoComplete='off'
+        onSubmit={handleSubmit}
       >
         <h2>{formTitle}</h2>
         <Label>Race Name</Label>
@@ -131,7 +127,7 @@ function RacesForm({
               key={coaches.coachUid}
               value={coaches.coachUid}
               >
-                {coach.fullName}
+                {coaches.fullName}
               </option>)}
         </Input>
         <Input
@@ -144,11 +140,10 @@ function RacesForm({
               key={athletes.athleteUid}
               value={athletes.athleteUid}
               >
-                {athlete.fullName}
+                {athletes.fullName}
               </option>)}
         </Input>
-        <Button color='primary' type='submit' onSubmit={updateSubmit}>Update</Button>
-        <Button color='secondary' type='submit' onSubmit={addSubmit}>Add New Race</Button>
+        <Button color='primary' type='submit'>Submit</Button>
       </Form>
     </div>
   );
@@ -157,7 +152,6 @@ function RacesForm({
 RacesForm.propTypes = {
   coach: PropTypes.any,
   athlete: PropTypes.any,
-  createRaces: PropTypes.array,
   setRaces: PropTypes.func,
   formTitle: PropTypes.string
 };
