@@ -1,13 +1,23 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import firebase from 'firebase';
 import { BrowserRouter as Router } from 'react-router-dom';
 import './App.scss';
 import Routes from '../helpers/Routes';
 import NavBar from '../components/NavBar';
+import { getSingleAthlete } from '../helpers/data/athleteData';
+import { getSingleCoach } from '../helpers/data/coachData';
 
 function App() {
   const [coach, setCoach] = useState(null);
   const [athlete, setAthlete] = useState(null);
+  const isMounted = useRef(false);
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  }, []);
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged((authed) => {
@@ -15,23 +25,36 @@ function App() {
         const coachInfoObject = {
           fullName: authed.displayName,
           profileImage: authed.photoURL,
-          uid: authed.uid,
+          coachUid: authed.uid,
           username: authed.email.split('@')[0],
         };
-        setCoach(coachInfoObject);
+        getSingleCoach(authed.uid, coachInfoObject).then((response) => {
+          if (isMounted.current) {
+            setCoach(response);
+          }
+          isMounted.current = true;
+        });
         setAthlete(false);
       } else if (authed && (authed.uid !== process.env.REACT_APP_COACH_UID)) {
         const athleteInfoObject = {
           fullName: authed.displayName,
           profileImage: authed.photoURL,
-          uid: authed.uid,
+          athleteUid: authed.uid,
           username: authed.email.split('@')[0],
         };
-        setAthlete(athleteInfoObject);
+        getSingleAthlete(authed.uid, athleteInfoObject).then((response) => {
+          if (isMounted.current) {
+            setAthlete(response);
+          }
+          isMounted.current = true;
+        });
         setCoach(false);
       } else if ((coach || coach === null) || (athlete || athlete === null)) {
-        setAthlete(false);
-        setCoach(false);
+        if (isMounted.current) {
+          setAthlete(false);
+          setCoach(false);
+        }
+        isMounted.current = true;
       }
     });
   }, []);

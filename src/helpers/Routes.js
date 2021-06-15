@@ -2,8 +2,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import RaceScheduleView from '../views/RaceScheduleView';
-import Users from '../views/Users';
 import LandingView from '../views/LandingView';
+import RacesFormView from '../views/RacesFormView';
 
 function Routes({ coach, athlete }) {
   return (
@@ -13,7 +13,8 @@ function Routes({ coach, athlete }) {
           coach={coach} athlete={athlete} />} />
         <Route exact path="/raceSchedule" component={() => <RaceScheduleView
           coach={coach} athlete={athlete} />} />
-        <Route exact path="/users" component={() => <Users coach={coach} />} />
+        <Route exact path="/addrace" component={() => <RacesFormView
+          coach={coach} athlete={athlete}/>} />
       </Switch>
     </div>
   );
