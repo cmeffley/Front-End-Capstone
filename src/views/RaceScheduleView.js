@@ -4,24 +4,24 @@ import RaceSchedule from '../components/RaceSchedule';
 import { getRacesAthlete, getRacesCoach } from '../helpers/data/raceData';
 
 function RaceScheduleView({ coach, athlete }) {
-  const [athleteRaces, setAthleteRaces] = useState([]);
-  console.warn(coach);
+  const [races, setRaces] = useState([]);
   useEffect(() => {
     if (coach !== null && athlete === false) {
-      getRacesCoach(coach.uid).then((response) => setAthleteRaces(response));
-    } else if (coach === false) {
-      getRacesAthlete(athlete.uid).then((response) => setAthleteRaces(response));
+      getRacesCoach(coach.coachUid).then((response) => setRaces(response));
+    } else if (athlete !== null && coach === false) {
+      getRacesAthlete(athlete.athleteUid).then((response) => setRaces(response));
     }
   }, []);
 
   return (
     <div>
-      {athleteRaces.map((raceInfo) => (
+      {races.map((raceInfo) => (
         <RaceSchedule
           key={raceInfo.firebaseKey}
           {...raceInfo}
           coach={coach}
           athlete={athlete}
+          setRaces={setRaces}
         />
       ))}
     </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -7,8 +7,30 @@ import {
   CardTitle,
   Button
 } from 'reactstrap';
+import RacesForm from './RacesForm';
+import { deleteRaceAthlete, deleteRaceCoach } from '../helpers/data/raceData';
 
-function RaceSchedule({ athlete, ...raceInfo }) {
+function RaceSchedule({
+  coach, athlete, setRaces, ...raceInfo
+}) {
+  const [editRace, setEditRace] = useState(false);
+
+  const handleClick = (type) => {
+    switch (type) {
+      case 'edit':
+        setEditRace((prevState) => !prevState);
+        break;
+      case 'athleteDelete':
+        deleteRaceAthlete(raceInfo.firebaseKey, athlete.athleteUid).then((racesArray) => setRaces(racesArray));
+        break;
+      case 'coachDelete':
+        deleteRaceCoach(raceInfo.firebaseKey, coach.coachUid).then((racesArray) => setRaces(racesArray));
+        break;
+      default:
+        console.warn('Keep Being Awesome!');
+    }
+  };
+
   return (
     <div>
       <Card>
@@ -16,9 +38,21 @@ function RaceSchedule({ athlete, ...raceInfo }) {
         <CardBody>
           <CardText>{raceInfo.raceDistance}</CardText>
           <CardText>{raceInfo.raceDate}</CardText>
-          <CardText>{raceInfo.raceLink}</CardText>
-          <Button color='danger'>Future Delete</Button>
-          <Button color='info'>Future Edit</Button>
+          <CardText><a href={raceInfo.raceLink}>Race Website</a></CardText>
+          {coach ? <Button color='success' onClick={() => handleClick('coachDelete')}>Delete</Button>
+            : <Button color='danger' onClick={() => handleClick('athleteDelete')}>Delete</Button>}
+          <Button color='info' onClick={() => handleClick('edit')}>
+            {editRace ? 'Close Form' : 'Edit Race'}
+          </Button>
+          {
+            editRace && <RacesForm
+              formTitle='Edit Race'
+              {...raceInfo}
+              coach={coach}
+              athlete={athlete}
+              setRaces={setRaces}
+              />
+          }
         </CardBody>
       </Card>
     </div>
@@ -27,7 +61,9 @@ function RaceSchedule({ athlete, ...raceInfo }) {
 
 RaceSchedule.propTypes = {
   raceInfo: PropTypes.array,
-  athlete: PropTypes.any
+  athlete: PropTypes.any,
+  coach: PropTypes.any,
+  setRaces: PropTypes.func
 };
 
 export default RaceSchedule;
