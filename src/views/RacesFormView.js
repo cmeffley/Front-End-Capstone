@@ -6,7 +6,7 @@ import { getRacesCoach, getRacesAthlete } from '../helpers/data/raceData';
 function RacesFormView({ coach, athlete }) {
   const [createRaces, setCreateRaces] = useState([]);
   useEffect(() => {
-    if (coach !== null && athlete === false) {
+    if (athlete === false) {
       getRacesCoach(coach.coachUid).then((response) => setCreateRaces(response));
     } else if (coach === false) {
       getRacesAthlete(athlete.athleteUid).then((response) => setCreateRaces(response));

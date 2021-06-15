@@ -16,7 +16,7 @@ import { getAthletes } from '../helpers/data/athleteData';
 import { getCoaches } from '../helpers/data/coachData';
 
 function RacesForm({
-  coach, athlete, createRaces, setAthleteRaces, formTitle, ...raceInfo
+  coach, athlete, createRaces, setRaces, formTitle, ...raceInfo
 }) {
   const [addRaces, setAddRaces] = useState({
     raceName: raceInfo?.raceName || '',
@@ -47,9 +47,9 @@ function RacesForm({
   const updateSubmit = (e) => {
     e.preventDefault();
     if (addRaces.firebaseKey && coach.coachUid) {
-      updateRaceCoach(addRaces, coach.coachUid).then((racesArray) => setAthleteRaces(racesArray));
+      updateRaceCoach(addRaces, coach.coachUid).then((racesArray) => setRaces(racesArray));
     } else if (addRaces.firebaseKey && athlete.athleteUid) {
-      updateRaceAthlete(addRaces, athlete.athleteUid).then((racesArray) => setAthleteRaces(racesArray));
+      updateRaceAthlete(addRaces, athlete.athleteUid).then((racesArray) => setRaces(racesArray));
     }
   };
 
@@ -158,7 +158,7 @@ RacesForm.propTypes = {
   coach: PropTypes.any,
   athlete: PropTypes.any,
   createRaces: PropTypes.array,
-  setAthleteRaces: PropTypes.func,
+  setRaces: PropTypes.func,
   formTitle: PropTypes.string
 };
 

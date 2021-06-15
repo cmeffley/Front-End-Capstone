@@ -11,7 +11,7 @@ import RacesForm from './RacesForm';
 import { deleteRaceAthlete, deleteRaceCoach } from '../helpers/data/raceData';
 
 function RaceSchedule({
-  coach, athlete, setAthleteRaces, ...raceInfo
+  coach, athlete, setRaces, ...raceInfo
 }) {
   const [editRace, setEditRace] = useState(false);
 
@@ -21,10 +21,10 @@ function RaceSchedule({
         setEditRace((prevState) => !prevState);
         break;
       case 'athleteDelete':
-        deleteRaceAthlete(raceInfo.firebaseKey, athlete.athleteUid).then((racesArray) => setAthleteRaces(racesArray));
+        deleteRaceAthlete(raceInfo.firebaseKey, athlete.athleteUid).then((racesArray) => setRaces(racesArray));
         break;
       case 'coachDelete':
-        deleteRaceCoach(raceInfo.firebaseKey, coach.coachUid).then((racesArray) => setAthleteRaces(racesArray));
+        deleteRaceCoach(raceInfo.firebaseKey, coach.coachUid).then((racesArray) => setRaces(racesArray));
         break;
       default:
         console.warn('Keep Being Awesome!');
@@ -48,7 +48,7 @@ function RaceSchedule({
             editRace && <RacesForm
               formTitle='Edit Race'
               {...raceInfo}
-              setAthleteRaces={setAthleteRaces}
+              setRaces={setRaces}
               />
           }
         </CardBody>
@@ -61,7 +61,7 @@ RaceSchedule.propTypes = {
   raceInfo: PropTypes.array,
   athlete: PropTypes.any,
   coach: PropTypes.any,
-  setAthleteRaces: PropTypes.func
+  setRaces: PropTypes.func
 };
 
 export default RaceSchedule;

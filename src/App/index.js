@@ -50,8 +50,11 @@ function App() {
         });
         setCoach(false);
       } else if ((coach || coach === null) || (athlete || athlete === null)) {
-        setAthlete(false);
-        setCoach(false);
+        if (isMounted.current) {
+          setAthlete(false);
+          setCoach(false);
+        }
+        isMounted.current = true;
       }
     });
   }, []);
