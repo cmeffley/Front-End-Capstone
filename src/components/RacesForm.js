@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -16,7 +17,7 @@ import { getAthletes } from '../helpers/data/athleteData';
 import { getCoaches } from '../helpers/data/coachData';
 
 function RacesForm({
-  coach, athlete, setRaces, formTitle, ...raceInfo
+  coach, athlete, setRaces, formTitle, setEditRace, ...raceInfo
 }) {
   const [addRaces, setAddRaces] = useState({
     raceName: raceInfo?.raceName || '',
@@ -31,6 +32,7 @@ function RacesForm({
   });
   const [selectAthlete, setSelectAthlete] = useState([]);
   const [selectCoach, setSelectCoach] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     getAthletes().then((response) => setSelectAthlete(response));
@@ -47,22 +49,24 @@ function RacesForm({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (addRaces.firebaseKey && raceInfo.coachUid && raceInfo.athleteUid) {
-      updateRaceCoach(addRaces, raceInfo.coachUid).then((racesArray) => setRaces(racesArray));
+      updateRaceCoach(addRaces, raceInfo.coachUid).then((racesArray) => {
+        setRaces(racesArray);
+        setEditRace(false);
+      });
     } else if (addRaces.firebaseKey && raceInfo.athleteUid && raceInfo.coachUid) {
-      updateRaceAthlete(addRaces, raceInfo.athleteUid).then((racesArray) => setRaces(racesArray));
+      updateRaceAthlete(addRaces, raceInfo.athleteUid).then((racesArray) => {
+        setRaces(racesArray);
+        setEditRace(false);
+      });
     } else if (coach !== null && athlete === false) {
-      addRaceCoach(addRaces, raceInfo.coachUid).then((racesArray) => setAddRaces(racesArray));
+      addRaceCoach(addRaces, raceInfo.coachUid).then((racesArray) => {
+        setAddRaces(racesArray);
+        history.push('/raceSchedule');
+      });
     } else if (coach === false) {
-      addRaceAthlete(addRaces, raceInfo.athleteUid).then((racesArray) => setAddRaces(racesArray));
-
-      setAddRaces({
-        raceName: '',
-        raceDistance: '',
-        raceDate: '',
-        raceLink: '',
-        startDate: '',
-        endDate: '',
-        firebaseKey: null
+      addRaceAthlete(addRaces, raceInfo.athleteUid).then((racesArray) => {
+        setAddRaces(racesArray);
+        history.push('/raceSchedule');
       });
     }
   };
@@ -157,7 +161,8 @@ RacesForm.propTypes = {
   coach: PropTypes.any,
   athlete: PropTypes.any,
   setRaces: PropTypes.func,
-  formTitle: PropTypes.string
+  formTitle: PropTypes.string,
+  setEditRace: PropTypes.func
 };
 
 export default RacesForm;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -8,14 +8,33 @@ import {
   Input,
   Button
 } from 'reactstrap';
+import { deleteWorkoutCoach } from '../helpers/data/workoutsData';
+import WorkoutsForm from './WorkoutsForm';
 
-function WorkoutCard({ coach, athlete, ...workoutInfo }) {
+function WorkoutCard({
+  coach, athlete, setWorkouts, ...workoutInfo
+}) {
+  const [editWorkout, setEditWorkout] = useState(false);
+
+  const handleClick = (type) => {
+    switch (type) {
+      case 'edit':
+        setEditWorkout((prevState) => !prevState);
+        break;
+      case 'delete':
+        deleteWorkoutCoach(workoutInfo.firebaseKey, coach.coachUid).then((workoutArray) => setWorkouts(workoutArray));
+        break;
+      default:
+        console.warn('Keep Being Awesome!');
+    }
+  };
   return (
     <div>
       <Card>
         <CardBody>
           <CardText>{workoutInfo.day}</CardText>
           <CardText>{workoutInfo.startDay}</CardText>
+          <CardText>{workoutInfo.dueDay}</CardText>
           <CardText>{workoutInfo.workoutType}</CardText>
           <CardText>{workoutInfo.plannedWork}</CardText>
           <Label check>
@@ -25,8 +44,21 @@ function WorkoutCard({ coach, athlete, ...workoutInfo }) {
           <CardText>{workoutInfo.totalMiles}</CardText>
           <CardText>{workoutInfo.averagePace}</CardText>
           <Button>Quick Workout</Button>
-          <Button color='warning'>Edit</Button>
-          <Button color='danger'>Coach Delete</Button>
+          {coach
+            ? <Button color='danger' onClick={() => handleClick('delete')}>
+              Coach Delete</Button> : ''}
+          <Button color='warning' onClick={() => handleClick('edit')}>
+            { editWorkout ? 'Close Form' : 'Edit Workout'}
+          </Button>
+            {
+              editWorkout && <WorkoutsForm
+                formTitle='Edit Workout'
+                {...workoutInfo}
+                coach={coach}
+                athlete={athlete}
+                setWorkouts={setWorkouts}
+                setEditWorkout={setEditWorkout}
+              />}
         </CardBody>
       </Card>
     </div>
@@ -36,7 +68,8 @@ function WorkoutCard({ coach, athlete, ...workoutInfo }) {
 WorkoutCard.propTypes = {
   coach: PropTypes.any,
   athlete: PropTypes.any,
-  workoutInfo: PropTypes.object
+  workoutInfo: PropTypes.object,
+  setWorkouts: PropTypes.func
 };
 
 export default WorkoutCard;
