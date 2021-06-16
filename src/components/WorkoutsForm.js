@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Button,
@@ -12,10 +13,9 @@ import {
   updateWorkoutCoach
 } from '../helpers/data/workoutsData';
 import { getAthletes } from '../helpers/data/athleteData';
-import { getCoaches } from '../helpers/data/coachData';
 
 function WorkoutsForm({
-  coach, athlete, setWorkouts, formTitle, ...workoutInfo
+  coach, athlete, setWorkouts, formTitle, setEditWorkout, ...workoutInfo
 }) {
   const [addWorkouts, setAddWorkouts] = useState({
     day: workoutInfo?.day || '',
@@ -32,11 +32,10 @@ function WorkoutsForm({
     firebaseKey: workoutInfo?.firebaseKey || null
   });
   const [selectAthlete, setSelectAthlete] = useState([]);
-  const [selectCoach, setSelectCoach] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     getAthletes().then((response) => setSelectAthlete(response));
-    getCoaches().then((response) => setSelectCoach(response));
   }, []);
 
   const handleInputChange = (e) => {
@@ -49,11 +48,20 @@ function WorkoutsForm({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (addWorkouts.firebaseKey && workoutInfo.coachUid && workoutInfo.athleteUid) {
-      updateWorkoutCoach(addWorkouts, workoutInfo.coachUid).then((workoutArray) => setWorkouts(workoutArray));
+      updateWorkoutCoach(addWorkouts, workoutInfo.coachUid).then((workoutArray) => {
+        setWorkouts(workoutArray);
+        setEditWorkout(false);
+      });
     } else if (addWorkouts.firebaseKey && workoutInfo.athleteUid && workoutInfo.coachUid) {
-      updateWorkoutAthlete(addWorkouts, workoutInfo.athleteUid).then((workoutArray) => setWorkouts(workoutArray));
+      updateWorkoutAthlete(addWorkouts, workoutInfo.athleteUid).then((workoutArray) => {
+        setWorkouts(workoutArray);
+        setEditWorkout(false);
+      });
     } else if (coach !== null) {
-      addWorkoutCoach(addWorkouts, workoutInfo.coachUid).then((workoutArray) => setAddWorkouts(workoutArray));
+      addWorkoutCoach(addWorkouts, workoutInfo.coachUid).then((workoutArray) => {
+        setAddWorkouts(workoutArray);
+        history.push('/workouts');
+      });
     }
   };
 
@@ -65,6 +73,8 @@ function WorkoutsForm({
         onSubmit={handleSubmit}
       >
       <h2>{formTitle}</h2>
+      { coach
+        ? <React.Fragment>
       <Label>Day</Label>
       <Input
         name='day'
@@ -72,6 +82,11 @@ function WorkoutsForm({
         value={addWorkouts.day}
         onChange={handleInputChange}
       />
+      </React.Fragment>
+        : ''
+      }
+      { coach
+        ? <React.Fragment>
       <Label>Day of Workout</Label>
       <Input
         name='startDay'
@@ -79,6 +94,11 @@ function WorkoutsForm({
         value={addWorkouts.startDay}
         onChange={handleInputChange}
       />
+      </React.Fragment>
+        : ''
+      }
+      { coach
+        ? <React.Fragment>
       <Label>Complete Workout By</Label>
       <Input
         name='dueDay'
@@ -86,6 +106,11 @@ function WorkoutsForm({
         value={addWorkouts.dueDay}
         onChange={handleInputChange}
       />
+      </React.Fragment>
+        : ''
+      }
+      { coach
+        ? <React.Fragment>
       <br />
       <Input
         name='workoutType'
@@ -100,6 +125,11 @@ function WorkoutsForm({
         <option>Cross Train</option>
         <option>Rest Day</option>
       </Input>
+      </React.Fragment>
+        : ''
+      }
+      { coach
+        ? <React.Fragment>
       <Label>Planned Workout</Label>
       <Input
         name='plannedWork'
@@ -107,52 +137,60 @@ function WorkoutsForm({
         value={addWorkouts.plannedWork}
         onChange={handleInputChange}
       />
+      </React.Fragment>
+        : ''
+      }
       <br/>
-      <Label check>
+      { athlete
+        ? <React.Fragment>
+        <Label check>
+          <Input
+            name='completed'
+            type='checkbox'
+            value={true}
+            checked={addWorkouts.completed}
+            onChange={handleInputChange}
+          />Completed
+        </Label>
+        </React.Fragment>
+        : ''
+      }
+        <br/>
+        { athlete
+          ? <React.Fragment>
+        <Label>Completed Workout Notes</Label>
         <Input
-          name='completed'
-          type='checkbox'
-          value={true}
-          checked={addWorkouts.completed}
+          name='actualWork'
+          type='textarea'
+          value={addWorkouts.actualWork}
           onChange={handleInputChange}
-        />Completed
-      </Label>
-      <br/>
-      <Label>Completed Workout Notes</Label>
-      <Input
-        name='actualWork'
-        type='textarea'
-        value={addWorkouts.actualWork}
-        onChange={handleInputChange}
-      />
-      <Label>Total Miles</Label>
-      <Input
-        name='totalMiles'
-        type='number'
-        value={addWorkouts.totalMiles}
-        onChange={handleInputChange}
-      />
-      <Label>Average Pace</Label>
-      <Input
-        name='averagePace'
-        type='number'
-        value={addWorkouts.averagePace}
-        onChange={handleInputChange}
-      />
-      { coach
-        ? '' : <Input
-          type='select'
-          name='coachUid'
+        />
+        </React.Fragment>
+          : ''
+        }
+        { athlete
+          ? <React.Fragment>
+        <Label>Total Miles</Label>
+        <Input
+          name='totalMiles'
+          type='number'
+          value={addWorkouts.totalMiles}
           onChange={handleInputChange}
-          >
-          <option hidden value=''>Select Coach</option>
-            {selectCoach.length && selectCoach.map((coaches) => <option
-              key={coaches.coachUid}
-              value={coaches.coachUid}
-              >
-                {coaches.fullName}
-            </option>)}
-        </Input>
+        />
+        </React.Fragment>
+          : ''
+        }
+        { athlete
+          ? <React.Fragment>
+        <Label>Average Pace</Label>
+        <Input
+          name='averagePace'
+          type='number'
+          value={addWorkouts.averagePace}
+          onChange={handleInputChange}
+        />
+          </React.Fragment>
+          : ''
         }
         { athlete
           ? '' : <Input
@@ -180,7 +218,8 @@ WorkoutsForm.propTypes = {
   athlete: PropTypes.any,
   workoutInfo: PropTypes.object,
   setWorkouts: PropTypes.func,
-  formTitle: PropTypes.string
+  formTitle: PropTypes.string,
+  setEditWorkout: PropTypes.func
 };
 
 export default WorkoutsForm;

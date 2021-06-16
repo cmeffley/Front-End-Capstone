@@ -51,6 +51,7 @@ function RaceSchedule({
               coach={coach}
               athlete={athlete}
               setRaces={setRaces}
+              setEditRace={setEditRace}
               />
           }
         </CardBody>

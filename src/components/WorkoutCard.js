@@ -22,7 +22,7 @@ function WorkoutCard({
         setEditWorkout((prevState) => !prevState);
         break;
       case 'delete':
-        deleteWorkoutCoach(workoutInfo.firebaseKey).then((workoutArray) => setWorkouts(workoutArray));
+        deleteWorkoutCoach(workoutInfo.firebaseKey, coach.coachUid).then((workoutArray) => setWorkouts(workoutArray));
         break;
       default:
         console.warn('Keep Being Awesome!');
@@ -44,17 +44,20 @@ function WorkoutCard({
           <CardText>{workoutInfo.totalMiles}</CardText>
           <CardText>{workoutInfo.averagePace}</CardText>
           <Button>Quick Workout</Button>
-          <Button color='danger' onClick={() => handleClick('delete')}>Coach Delete</Button>
+          {coach
+            ? <Button color='danger' onClick={() => handleClick('delete')}>
+              Coach Delete</Button> : ''}
           <Button color='warning' onClick={() => handleClick('edit')}>
             { editWorkout ? 'Close Form' : 'Edit Workout'}
           </Button>
             {
               editWorkout && <WorkoutsForm
-                formTitle='Edit Form'
+                formTitle='Edit Workout'
                 {...workoutInfo}
                 coach={coach}
                 athlete={athlete}
                 setWorkouts={setWorkouts}
+                setEditWorkout={setEditWorkout}
               />}
         </CardBody>
       </Card>
