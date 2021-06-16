@@ -24,6 +24,14 @@ const NavBar = ({ coach, athlete }) => {
 
   const toggle = () => setIsOpen(!isOpen);
 
+  const coachOnly = () => (
+    <>
+      <NavItem>
+        <Link className="nav-link" to="/addworkouts">Create Workouts</Link>
+      </NavItem>
+    </>
+  );
+
   return (
     <div>
       <Navbar color="dark" dark expand="md">
@@ -37,14 +45,19 @@ const NavBar = ({ coach, athlete }) => {
             <NavItem>
               <Link className="nav-link" to="/addrace">Add Race</Link>
             </NavItem>
+            <NavItem>
+              <Link className="nav-link" to="/workouts">Workouts</Link>
+            </NavItem>
+            { coach && coachOnly()}
           </Nav>
             <div className='auth-btn-container'>
               <Form>
                 <input
                   name='city'
                   type='text'
-                  placeholder='Check Weather'
+                  placeholder='Enter City'
                 />
+                <Button>Check Weather</Button>
               </Form>
             </div>
           { (coach !== null || athlete !== null)

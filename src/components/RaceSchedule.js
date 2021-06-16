@@ -51,6 +51,7 @@ function RaceSchedule({
               coach={coach}
               athlete={athlete}
               setRaces={setRaces}
+              setEditRace={setEditRace}
               />
           }
         </CardBody>
@@ -60,7 +61,7 @@ function RaceSchedule({
 }
 
 RaceSchedule.propTypes = {
-  raceInfo: PropTypes.array,
+  raceInfo: PropTypes.object,
   athlete: PropTypes.any,
   coach: PropTypes.any,
   setRaces: PropTypes.func
