@@ -21,6 +21,7 @@ function WorkoutsView({ coach, athlete }) {
           {...workoutInfo}
           coach={coach}
           athlete={athlete}
+          setWorkouts={setWorkouts}
         />
       ))}
     </div>
