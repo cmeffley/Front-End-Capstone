@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import PrivateRoute from './PrivateRoute';
 import RaceScheduleView from '../views/RaceScheduleView';
 import LandingView from '../views/LandingView';
 import RacesFormView from '../views/RacesFormView';
@@ -19,8 +20,11 @@ function Routes({ coach, athlete }) {
           coach={coach} athlete={athlete}/>} />
         <Route exact path="/workouts" component={() => <WorkoutsView
           coach={coach} athlete={athlete}/>} />
-        <Route exact path="/addworkouts" component={() => <WorkoutsFormView
-          coach={coach} athlete={athlete}/>} />
+        <PrivateRoute exact path="/addworkouts"
+          coach={coach}
+          component={() => <WorkoutsFormView
+          coach={coach} athlete={athlete}/>}
+        />
       </Switch>
     </div>
   );
