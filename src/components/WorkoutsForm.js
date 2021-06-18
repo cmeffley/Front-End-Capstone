@@ -29,6 +29,7 @@ function WorkoutsForm({
     averagePace: workoutInfo?.averagePace || '',
     athleteUid: workoutInfo?.athleteUid || athlete.athleteUid,
     coachUid: workoutInfo?.coachUid || coach.coachUid,
+    raceId: workoutInfo?.raceId || '',
     firebaseKey: workoutInfo?.firebaseKey || null
   });
   const [selectAthlete, setSelectAthlete] = useState([]);
