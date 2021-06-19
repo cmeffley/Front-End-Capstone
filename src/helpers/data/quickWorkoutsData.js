@@ -5,7 +5,7 @@ const dbUrl = firebaseConfig.databaseURL;
 
 const getQuickWorkouts = () => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/quickWorkouts.json`)
-    .then((response) => console.warn(response.data))
+    .then((response) => resolve(Object.values(response.data)))
     .catch((error) => reject(error));
 });
 
