@@ -65,7 +65,7 @@ const deleteRaceAthlete = (firebaseKey, uid) => new Promise((resolve, reject) =>
 
 const getSingleRace = (firebaseKey) => new Promise((resolve, reject) => {
   axios.get(`${dbUrl}/races/${firebaseKey}.json`)
-    .then((response) => console.warn(response.data))
+    .then((response) => resolve(response.data))
     .catch((error) => reject(error));
 });
 
