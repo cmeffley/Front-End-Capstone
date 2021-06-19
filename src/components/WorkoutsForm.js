@@ -10,13 +10,13 @@ import {
 import {
   addWorkoutCoach,
   updateWorkoutAthlete,
-  updateWorkoutCoach
+  updateWorkoutCoach,
 } from '../helpers/data/workoutsData';
 import { getAthletes } from '../helpers/data/athleteData';
 import { getAllRaces } from '../helpers/data/raceData';
 
 function WorkoutsForm({
-  coach, athlete, setWorkouts, formTitle, setEditWorkout, ...workoutInfo
+  coach, athlete, setWorkouts, formTitle, setRaceWorkout, setEditWorkout, ...workoutInfo
 }) {
   const [addWorkouts, setAddWorkouts] = useState({
     day: workoutInfo?.day || '',
@@ -53,12 +53,12 @@ function WorkoutsForm({
     e.preventDefault();
     if (addWorkouts.firebaseKey && workoutInfo.coachUid && workoutInfo.athleteUid) {
       updateWorkoutCoach(addWorkouts, workoutInfo.coachUid).then((workoutArray) => {
-        setWorkouts(workoutArray);
+        setRaceWorkout(workoutArray);
         setEditWorkout(false);
       });
     } else if (addWorkouts.firebaseKey && workoutInfo.athleteUid && workoutInfo.coachUid) {
       updateWorkoutAthlete(addWorkouts, workoutInfo.athleteUid).then((workoutArray) => {
-        setWorkouts(workoutArray);
+        setRaceWorkout(workoutArray);
         setEditWorkout(false);
       });
     } else if (coach !== null) {
@@ -238,7 +238,8 @@ WorkoutsForm.propTypes = {
   workoutInfo: PropTypes.object,
   setWorkouts: PropTypes.func,
   formTitle: PropTypes.string,
-  setEditWorkout: PropTypes.func
+  setEditWorkout: PropTypes.func,
+  setRaceWorkout: PropTypes.func
 };
 
 export default WorkoutsForm;

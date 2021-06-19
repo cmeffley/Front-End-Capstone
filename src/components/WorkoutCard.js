@@ -58,6 +58,7 @@ function WorkoutCard({
                 athlete={athlete}
                 setWorkouts={setWorkouts}
                 setEditWorkout={setEditWorkout}
+                setRaceWorkout={setRaceWorkout}
               />}
         </CardBody>
       </Card>
