@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -8,12 +9,14 @@ import {
   Button
 } from 'reactstrap';
 import RacesForm from './RacesForm';
-import { deleteRaceAthlete, deleteRaceCoach } from '../helpers/data/raceData';
+// import { deleteRaceAthlete } from '../helpers/data/raceData';
+import { deleteRaceandWorkoutsCoach, deleteRaceandWorkoutsAthlete } from '../helpers/data/raceWorkoutsData';
 
 function RaceSchedule({
   coach, athlete, setRaces, ...raceInfo
 }) {
   const [editRace, setEditRace] = useState(false);
+  const history = useHistory();
 
   const handleClick = (type) => {
     switch (type) {
@@ -21,14 +24,17 @@ function RaceSchedule({
         setEditRace((prevState) => !prevState);
         break;
       case 'athleteDelete':
-        deleteRaceAthlete(raceInfo.firebaseKey, athlete.athleteUid).then((racesArray) => setRaces(racesArray));
+        deleteRaceandWorkoutsAthlete(raceInfo.firebaseKey, athlete.athleteUid).then((racesArray) => setRaces(racesArray));
         break;
       case 'coachDelete':
-        deleteRaceCoach(raceInfo.firebaseKey, coach.coachUid).then((racesArray) => setRaces(racesArray));
+        deleteRaceandWorkoutsCoach(raceInfo.firebaseKey, coach.coachUid).then((racesArray) => setRaces(racesArray));
         break;
       default:
         console.warn('Keep Being Awesome!');
     }
+  };
+  const goToWorkouts = () => {
+    history.push(`/raceSchedule/${raceInfo.firebaseKey}`);
   };
 
   return (
@@ -39,6 +45,7 @@ function RaceSchedule({
           <CardText>{raceInfo.raceDistance}</CardText>
           <CardText>{raceInfo.raceDate}</CardText>
           <CardText><a href={raceInfo.raceLink}>Race Website</a></CardText>
+          <Button onClick={goToWorkouts}>See Race Workout Program</Button>
           {coach ? <Button color='success' onClick={() => handleClick('coachDelete')}>Delete</Button>
             : <Button color='danger' onClick={() => handleClick('athleteDelete')}>Delete</Button>}
           <Button color='info' onClick={() => handleClick('edit')}>

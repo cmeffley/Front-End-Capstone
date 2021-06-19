@@ -12,7 +12,7 @@ import { deleteWorkoutCoach } from '../helpers/data/workoutsData';
 import WorkoutsForm from './WorkoutsForm';
 
 function WorkoutCard({
-  coach, athlete, setWorkouts, ...workoutInfo
+  coach, athlete, setRaceWorkout, setWorkouts, ...workoutInfo
 }) {
   const [editWorkout, setEditWorkout] = useState(false);
 
@@ -22,7 +22,7 @@ function WorkoutCard({
         setEditWorkout((prevState) => !prevState);
         break;
       case 'delete':
-        deleteWorkoutCoach(workoutInfo.firebaseKey, coach.coachUid).then((workoutArray) => setWorkouts(workoutArray));
+        deleteWorkoutCoach(workoutInfo.firebaseKey, coach.coachUid).then((workoutArray) => setRaceWorkout(workoutArray));
         break;
       default:
         console.warn('Keep Being Awesome!');
@@ -58,6 +58,7 @@ function WorkoutCard({
                 athlete={athlete}
                 setWorkouts={setWorkouts}
                 setEditWorkout={setEditWorkout}
+                setRaceWorkout={setRaceWorkout}
               />}
         </CardBody>
       </Card>
@@ -69,7 +70,8 @@ WorkoutCard.propTypes = {
   coach: PropTypes.any,
   athlete: PropTypes.any,
   workoutInfo: PropTypes.object,
-  setWorkouts: PropTypes.func
+  setWorkouts: PropTypes.func,
+  setRaceWorkout: PropTypes.func
 };
 
 export default WorkoutCard;

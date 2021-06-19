@@ -10,12 +10,13 @@ import {
 import {
   addWorkoutCoach,
   updateWorkoutAthlete,
-  updateWorkoutCoach
+  updateWorkoutCoach,
 } from '../helpers/data/workoutsData';
 import { getAthletes } from '../helpers/data/athleteData';
+import { getAllRaces } from '../helpers/data/raceData';
 
 function WorkoutsForm({
-  coach, athlete, setWorkouts, formTitle, setEditWorkout, ...workoutInfo
+  coach, athlete, setWorkouts, formTitle, setRaceWorkout, setEditWorkout, ...workoutInfo
 }) {
   const [addWorkouts, setAddWorkouts] = useState({
     day: workoutInfo?.day || '',
@@ -29,13 +30,16 @@ function WorkoutsForm({
     averagePace: workoutInfo?.averagePace || '',
     athleteUid: workoutInfo?.athleteUid || athlete.athleteUid,
     coachUid: workoutInfo?.coachUid || coach.coachUid,
+    raceId: workoutInfo?.raceId || '',
     firebaseKey: workoutInfo?.firebaseKey || null
   });
   const [selectAthlete, setSelectAthlete] = useState([]);
+  const [selectRace, setSelectRace] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
     getAthletes().then((response) => setSelectAthlete(response));
+    getAllRaces().then((response) => setSelectRace(response));
   }, []);
 
   const handleInputChange = (e) => {
@@ -49,12 +53,12 @@ function WorkoutsForm({
     e.preventDefault();
     if (addWorkouts.firebaseKey && workoutInfo.coachUid && workoutInfo.athleteUid) {
       updateWorkoutCoach(addWorkouts, workoutInfo.coachUid).then((workoutArray) => {
-        setWorkouts(workoutArray);
+        setRaceWorkout(workoutArray);
         setEditWorkout(false);
       });
     } else if (addWorkouts.firebaseKey && workoutInfo.athleteUid && workoutInfo.coachUid) {
       updateWorkoutAthlete(addWorkouts, workoutInfo.athleteUid).then((workoutArray) => {
-        setWorkouts(workoutArray);
+        setRaceWorkout(workoutArray);
         setEditWorkout(false);
       });
     } else if (coach !== null) {
@@ -207,6 +211,21 @@ function WorkoutsForm({
             </option>)}
         </Input>
         }
+        { athlete
+          ? '' : <Input
+          type='select'
+          name='raceId'
+          onChange={handleInputChange}
+          >
+          <option hidden value=''>Select Race</option>
+            {selectRace.length && selectRace.map((races) => <option
+              key={races.firebaseKey}
+              value={races.firebaseKey}
+              >
+                {races.raceName}
+            </option>)}
+        </Input>
+        }
       <Button color='primary' type='submit'>Submit</Button>
       </Form>
     </div>
@@ -219,7 +238,8 @@ WorkoutsForm.propTypes = {
   workoutInfo: PropTypes.object,
   setWorkouts: PropTypes.func,
   formTitle: PropTypes.string,
-  setEditWorkout: PropTypes.func
+  setEditWorkout: PropTypes.func,
+  setRaceWorkout: PropTypes.func
 };
 
 export default WorkoutsForm;

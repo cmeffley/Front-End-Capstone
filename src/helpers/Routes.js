@@ -7,6 +7,7 @@ import LandingView from '../views/LandingView';
 import RacesFormView from '../views/RacesFormView';
 import WorkoutsView from '../views/WorkoutsView';
 import WorkoutsFormView from '../views/WorkoutsFormView';
+import RaceWorkoutsView from '../views/RaceWorkoutsView';
 
 function Routes({ coach, athlete }) {
   return (
@@ -16,14 +17,16 @@ function Routes({ coach, athlete }) {
           coach={coach} athlete={athlete} />} />
         <Route exact path="/raceSchedule" component={() => <RaceScheduleView
           coach={coach} athlete={athlete} />} />
+        <Route exact path="/raceSchedule/:raceId" component={() => <RaceWorkoutsView
+          coach={coach} athlete={athlete} />} />
         <Route exact path="/addrace" component={() => <RacesFormView
-          coach={coach} athlete={athlete}/>} />
+          coach={coach} athlete={athlete} />} />
         <Route exact path="/workouts" component={() => <WorkoutsView
-          coach={coach} athlete={athlete}/>} />
+          coach={coach} athlete={athlete} />} />
         <PrivateRoute exact path="/addworkouts"
           coach={coach}
           component={() => <WorkoutsFormView
-          coach={coach} athlete={athlete}/>}
+          coach={coach} athlete={athlete} />}
         />
       </Switch>
     </div>
