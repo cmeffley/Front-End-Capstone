@@ -45,11 +45,18 @@ const deleteWorkoutCoach = (firebaseKey, uid) => new Promise((resolve, reject) =
     .catch((error) => reject(error));
 });
 
+const getRaceWorkouts = (raceId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/workouts.json?orderBy="raceId"&equalTo="${raceId}"`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
+
 export {
   getWorkoutsAthlete,
   getWorkoutsCoach,
   addWorkoutCoach,
   updateWorkoutCoach,
   updateWorkoutAthlete,
-  deleteWorkoutCoach
+  deleteWorkoutCoach,
+  getRaceWorkouts
 };

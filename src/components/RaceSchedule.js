@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -14,6 +15,7 @@ function RaceSchedule({
   coach, athlete, setRaces, ...raceInfo
 }) {
   const [editRace, setEditRace] = useState(false);
+  const history = useHistory();
 
   const handleClick = (type) => {
     switch (type) {
@@ -30,6 +32,9 @@ function RaceSchedule({
         console.warn('Keep Being Awesome!');
     }
   };
+  const goToWorkouts = () => {
+    history.push(`/raceSchedule/${raceInfo.firebaseKey}`);
+  };
 
   return (
     <div>
@@ -39,6 +44,7 @@ function RaceSchedule({
           <CardText>{raceInfo.raceDistance}</CardText>
           <CardText>{raceInfo.raceDate}</CardText>
           <CardText><a href={raceInfo.raceLink}>Race Website</a></CardText>
+          <Button onClick={goToWorkouts}>See Race Workout Program</Button>
           {coach ? <Button color='success' onClick={() => handleClick('coachDelete')}>Delete</Button>
             : <Button color='danger' onClick={() => handleClick('athleteDelete')}>Delete</Button>}
           <Button color='info' onClick={() => handleClick('edit')}>
