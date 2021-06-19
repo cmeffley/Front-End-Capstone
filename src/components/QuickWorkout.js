@@ -1,35 +1,30 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useEffect } from 'react';
 import {
   Card,
   CardText,
   CardBody,
   CardTitle,
-  Button
 } from 'reactstrap';
+import { getQuickWorkouts } from '../helpers/data/quickWorkoutsData';
 
-function QuickWorkout({
-  coach, athlete, ...quickObject
-}) {
+function QuickWorkout() {
+  const [randomQuickWork, setRandomQuickWork] = useState({});
+  useEffect(() => {
+    getQuickWorkouts().then((response) => {
+      setRandomQuickWork(response[Math.floor(Math.random() * response.length)]);
+    });
+  }, []);
   return (
     <div>
       <Card>
-        <CardTitle>Quick Workout #{quickObject.id}</CardTitle>
+        <CardTitle>Quick Workout #{randomQuickWork.id}</CardTitle>
         <CardBody>
-          <CardText>{quickObject.description}</CardText>
-          <CardText>{quickObject.length}</CardText>
-          <Button>Button</Button>
-          <CardText>If you do this workout, please write the Number of the Quick Workout in the Actual Work portion of the Workout Card</CardText>
+          <CardText>{randomQuickWork.description}</CardText>
+          <CardText>{randomQuickWork.length}</CardText>
         </CardBody>
       </Card>
     </div>
   );
 }
-
-QuickWorkout.propTypes = {
-  coach: PropTypes.any,
-  athlete: PropTypes.any,
-  quickObject: PropTypes.object
-};
 
 export default QuickWorkout;
