@@ -13,6 +13,7 @@ import {
   updateWorkoutCoach
 } from '../helpers/data/workoutsData';
 import { getAthletes } from '../helpers/data/athleteData';
+import { getAllRaces } from '../helpers/data/raceData';
 
 function WorkoutsForm({
   coach, athlete, setWorkouts, formTitle, setEditWorkout, ...workoutInfo
@@ -33,10 +34,12 @@ function WorkoutsForm({
     firebaseKey: workoutInfo?.firebaseKey || null
   });
   const [selectAthlete, setSelectAthlete] = useState([]);
+  const [selectRace, setSelectRace] = useState([]);
   const history = useHistory();
 
   useEffect(() => {
     getAthletes().then((response) => setSelectAthlete(response));
+    getAllRaces().then((response) => setSelectRace(response));
   }, []);
 
   const handleInputChange = (e) => {
@@ -205,6 +208,21 @@ function WorkoutsForm({
               value={athletes.athleteUid}
               >
                 {athletes.fullName}
+            </option>)}
+        </Input>
+        }
+        { athlete
+          ? '' : <Input
+          type='select'
+          name='raceId'
+          onChange={handleInputChange}
+          >
+          <option hidden value=''>Select Race</option>
+            {selectRace.length && selectRace.map((races) => <option
+              key={races.firebaseKey}
+              value={races.firebaseKey}
+              >
+                {races.raceName}
             </option>)}
         </Input>
         }

@@ -33,7 +33,7 @@ function RaceSchedule({
     }
   };
   const goToWorkouts = () => {
-    history.push(`/raceschedule/${raceInfo.raceId}`);
+    history.push(`/raceSchedule/${raceInfo.firebaseKey}`);
   };
 
   return (

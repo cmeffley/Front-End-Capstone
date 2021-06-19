@@ -69,6 +69,12 @@ const getSingleRace = (firebaseKey) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+const getAllRaces = () => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/races.json`)
+    .then((response) => resolve(Object.values(response.data)))
+    .catch((error) => reject(error));
+});
+
 export {
   getRacesAthlete,
   getRacesCoach,
@@ -78,5 +84,6 @@ export {
   updateRaceAthlete,
   deleteRaceCoach,
   deleteRaceAthlete,
-  getSingleRace
+  getSingleRace,
+  getAllRaces
 };

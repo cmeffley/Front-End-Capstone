@@ -20,8 +20,8 @@ function RaceWorkoutsView({ coach, athlete }) {
   useEffect(() => {
     seeWorkoutsForRace(raceId).then((response) => {
       if (isMounted.current) {
-        setRace(response[0]);
-        setRaceWorkout(response[1]);
+        setRace(response.race);
+        setRaceWorkout(response.workout);
       }
       isMounted.current = true;
     });
@@ -31,8 +31,8 @@ function RaceWorkoutsView({ coach, athlete }) {
       <header>
         <h1>{race.raceName}</h1>
       </header>
-      <h4>{race.startDate}</h4>
-      <h4>{race.endDate}</h4>
+      <br />
+      <h6>Workout Program starts: {race.startDate} and finishes on {race.endDate}</h6>
     <div>
       { raceWorkout.length <= 0 ? 'No Workout Created' : raceWorkout.map((raceWorkoutObject) => <WorkoutCard
           key={raceWorkoutObject.firebaseKey}
