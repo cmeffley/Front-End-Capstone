@@ -29,6 +29,9 @@ const NavBar = ({ coach, athlete }) => {
       <NavItem>
         <Link className="nav-link" to="/addworkouts">Create Workouts</Link>
       </NavItem>
+      <NavItem>
+        <Link className="nav-link" to="/editquickworkouts">Edit Quick Workouts</Link>
+      </NavItem>
     </>
   );
 
