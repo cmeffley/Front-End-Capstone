@@ -14,6 +14,7 @@ function EditQuickWorkoutsView({ coach }) {
     <div>
       <EditQuickWorkouts
         formTitle='Add New Quick Workout'
+        setAddEditQuickWork={setAddEditQuickWork}
       />
       {addEditQuickWork.map((addEditObject) => (
         <EditQuickWorkouts

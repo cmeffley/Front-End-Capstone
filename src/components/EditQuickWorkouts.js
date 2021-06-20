@@ -18,7 +18,7 @@ function EditQuickWorkouts({
     id: addEditObject?.id || '',
     description: addEditObject?.description || '',
     length: addEditObject?.length || '',
-    firebaseKey: addEditObject?.firebaseKey || null
+    firebaseKey: addEditObject?.firebaseKey || null,
   });
 
   const handleInputChange = (e) => {
@@ -31,9 +31,9 @@ function EditQuickWorkouts({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editQuickWork.firebaseKey) {
-      editQuickWorkout(editQuickWork, coach).then((response) => setAddEditQuickWork(response));
+      editQuickWorkout(editQuickWork).then((response) => setAddEditQuickWork(response));
     } else {
-      addQuickWorkout(editQuickWork, coach).then((response) => setEditQuickWork(response));
+      addQuickWorkout(editQuickWork).then((response) => setAddEditQuickWork(response));
       setEditQuickWork({
         id: '',
         description: '',
@@ -44,7 +44,7 @@ function EditQuickWorkouts({
   };
 
   const goodbyeQuickWorkout = () => {
-    deleteQuickWorkout(addEditObject.firebaseKey, coach).then((array) => setAddEditQuickWork(array));
+    deleteQuickWorkout(addEditObject.firebaseKey).then((array) => setAddEditQuickWork(array));
   };
 
   return (
