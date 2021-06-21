@@ -13,6 +13,7 @@ import {
   ModalFooter
 } from 'reactstrap';
 import { deleteWorkoutCoach } from '../helpers/data/workoutsData';
+import { seeWorkoutsForRace } from '../helpers/data/raceWorkoutsData';
 import WorkoutsForm from './WorkoutsForm';
 import QuickWorkout from './QuickWorkout';
 
@@ -33,7 +34,7 @@ function WorkoutCard({
         setEditWorkout((prevState) => !prevState);
         break;
       case 'delete':
-        deleteWorkoutCoach(workoutInfo.firebaseKey, coach.coachUid).then((workoutArray) => setRaceWorkout(workoutArray));
+        deleteWorkoutCoach(workoutInfo.firebaseKey, coach.coachUid).then(() => seeWorkoutsForRace(workoutInfo.raceId).then((workoutArray) => setRaceWorkout(workoutArray.workout)));
         break;
       default:
         console.warn('Keep Being Awesome!');
@@ -64,10 +65,12 @@ function WorkoutCard({
           <CardText>{workoutInfo.actualWork}</CardText>
           <CardText>{workoutInfo.totalMiles}</CardText>
           <CardText>{workoutInfo.averagePace}</CardText>
-          <Button onClick={toggle}>Short on Time</Button>
+          { coach
+            ? ''
+            : <Button onClick={toggle}>Short on Time</Button> }
           {coach
             ? <Button color='danger' onClick={() => handleClick('delete')}>
-              Coach Delete</Button> : ''}
+              Delete Workout </Button> : ''}
           <Button color='warning' onClick={() => handleClick('edit')}>
             { editWorkout ? 'Close Form' : 'Edit Workout'}
           </Button>
