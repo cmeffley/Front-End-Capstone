@@ -79,7 +79,7 @@ function WorkoutsForm({
       <h2>{formTitle}</h2>
       { coach
         ? <React.Fragment>
-      <Label>Day</Label>
+      <Label>Day of Week</Label>
       <Input
         name='day'
         type='text'
@@ -91,7 +91,7 @@ function WorkoutsForm({
       }
       { coach
         ? <React.Fragment>
-      <Label>Day of Workout</Label>
+      <Label>Start of Workout</Label>
       <Input
         name='startDay'
         type='text'
