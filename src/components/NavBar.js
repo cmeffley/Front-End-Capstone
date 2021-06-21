@@ -9,20 +9,35 @@ import {
   Nav,
   NavItem,
   Button,
-  Form
+  Form,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
 } from 'reactstrap';
 import { signOutUser } from '../helpers/auth';
+import getWeather from '../helpers/data/weatherData';
+import WeatherCard from './WeatherCard';
 
 const NavBar = ({ coach, athlete }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [city, setCity] = useState('');
+  const [data, setData] = useState(null);
+  const [modal, setModal] = useState(false);
+
+  const modaltoggle = () => setModal(!modal);
+  const toggle = () => setIsOpen(!isOpen);
   const history = useHistory();
+
+  async function forecastRequest() {
+    await getWeather(city)
+      .then((response) => setData(response));
+  }
 
   const signOutToHome = () => {
     signOutUser();
     history.push('/');
   };
-
-  const toggle = () => setIsOpen(!isOpen);
 
   const coachOnly = () => (
     <>
@@ -37,6 +52,19 @@ const NavBar = ({ coach, athlete }) => {
 
   return (
     <div>
+      <>
+        <Modal isOpen={modal} toggle={modaltoggle} className='weathermodal'>
+          <ModalHeader toggle={modaltoggle}>Weather</ModalHeader>
+          <ModalBody>
+            <WeatherCard
+              data={data}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={modaltoggle}>Close</Button>
+          </ModalFooter>
+        </Modal>
+      </>
       <Navbar color="dark" dark expand="md">
         <NavbarBrand href="/">Home</NavbarBrand>
         <NavbarToggler onClick={toggle} />
@@ -57,13 +85,22 @@ const NavBar = ({ coach, athlete }) => {
             { coach && coachOnly()}
           </Nav>
             <div className='auth-btn-container'>
-              <Form>
+              <Form
+                id='searchweatherform'
+                autoComplete='off'
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  forecastRequest();
+                  modaltoggle();
+                }}>
                 <input
                   name='city'
                   type='text'
                   placeholder='Enter City'
+                  value={city}
+                  onChange={(e) => setCity(e.target.value)}
                 />
-                <Button>Check Weather</Button>
+                <Button type='submit'>Check Weather</Button>
               </Form>
             </div>
           { (coach !== null || athlete !== null)

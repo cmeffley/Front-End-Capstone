@@ -64,7 +64,7 @@ function WorkoutsForm({
     } else if (coach !== null) {
       addWorkoutCoach(addWorkouts, workoutInfo.coachUid).then((workoutArray) => {
         setAddWorkouts(workoutArray);
-        history.push('/workouts');
+        history.push('/raceSchedule');
       });
     }
   };
