@@ -6,15 +6,26 @@ import {
   CardBody,
   Label,
   Input,
-  Button
+  Button,
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter
 } from 'reactstrap';
 import { deleteWorkoutCoach } from '../helpers/data/workoutsData';
 import WorkoutsForm from './WorkoutsForm';
+import QuickWorkout from './QuickWorkout';
 
 function WorkoutCard({
-  coach, athlete, setRaceWorkout, setWorkouts, ...workoutInfo
+  coach,
+  athlete,
+  setRaceWorkout,
+  setWorkouts,
+  ...workoutInfo
 }) {
   const [editWorkout, setEditWorkout] = useState(false);
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
 
   const handleClick = (type) => {
     switch (type) {
@@ -28,8 +39,18 @@ function WorkoutCard({
         console.warn('Keep Being Awesome!');
     }
   };
+
   return (
     <div>
+      <Modal isOpen={modal} toggle={toggle} className='quickWorkModal'>
+        <ModalHeader toggle={toggle}>If you do this workout, please write the Number of the Quick Workout in the Actual Work portion of the Workout Card</ModalHeader>
+        <ModalBody>
+          <QuickWorkout />
+        </ModalBody>
+        <ModalFooter>
+          <Button color="secondary" onClick={toggle}>Close</Button>
+        </ModalFooter>
+      </Modal>
       <Card>
         <CardBody>
           <CardText>{workoutInfo.day}</CardText>
@@ -43,7 +64,7 @@ function WorkoutCard({
           <CardText>{workoutInfo.actualWork}</CardText>
           <CardText>{workoutInfo.totalMiles}</CardText>
           <CardText>{workoutInfo.averagePace}</CardText>
-          <Button>Quick Workout</Button>
+          <Button onClick={toggle}>Short on Time</Button>
           {coach
             ? <Button color='danger' onClick={() => handleClick('delete')}>
               Coach Delete</Button> : ''}
@@ -58,6 +79,7 @@ function WorkoutCard({
                 athlete={athlete}
                 setWorkouts={setWorkouts}
                 setEditWorkout={setEditWorkout}
+                setRaceWorkout={setRaceWorkout}
               />}
         </CardBody>
       </Card>
@@ -70,7 +92,7 @@ WorkoutCard.propTypes = {
   athlete: PropTypes.any,
   workoutInfo: PropTypes.object,
   setWorkouts: PropTypes.func,
-  setRaceWorkout: PropTypes.func
+  setRaceWorkout: PropTypes.func,
 };
 
 export default WorkoutCard;

@@ -29,6 +29,9 @@ const NavBar = ({ coach, athlete }) => {
       <NavItem>
         <Link className="nav-link" to="/addworkouts">Create Workouts</Link>
       </NavItem>
+      <NavItem>
+        <Link className="nav-link" to="/editquickworkouts">Edit Quick Workouts</Link>
+      </NavItem>
     </>
   );
 
@@ -48,6 +51,9 @@ const NavBar = ({ coach, athlete }) => {
             <NavItem>
               <Link className="nav-link" to="/workouts">Workouts</Link>
             </NavItem>
+            {/* <NavItem>
+              <Link className="nav-link" to="/quickWorkout">Quick Workouts</Link>
+            </NavItem> */}
             { coach && coachOnly()}
           </Nav>
             <div className='auth-btn-container'>

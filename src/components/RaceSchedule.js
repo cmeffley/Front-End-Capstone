@@ -9,7 +9,8 @@ import {
   Button
 } from 'reactstrap';
 import RacesForm from './RacesForm';
-import { deleteRaceAthlete, deleteRaceCoach } from '../helpers/data/raceData';
+// import { deleteRaceAthlete } from '../helpers/data/raceData';
+import { deleteRaceandWorkoutsCoach, deleteRaceandWorkoutsAthlete } from '../helpers/data/raceWorkoutsData';
 
 function RaceSchedule({
   coach, athlete, setRaces, ...raceInfo
@@ -23,10 +24,10 @@ function RaceSchedule({
         setEditRace((prevState) => !prevState);
         break;
       case 'athleteDelete':
-        deleteRaceAthlete(raceInfo.firebaseKey, athlete.athleteUid).then((racesArray) => setRaces(racesArray));
+        deleteRaceandWorkoutsAthlete(raceInfo.firebaseKey, athlete.athleteUid).then((racesArray) => setRaces(racesArray));
         break;
       case 'coachDelete':
-        deleteRaceCoach(raceInfo.firebaseKey, coach.coachUid).then((racesArray) => setRaces(racesArray));
+        deleteRaceandWorkoutsCoach(raceInfo.firebaseKey, coach.coachUid).then((racesArray) => setRaces(racesArray));
         break;
       default:
         console.warn('Keep Being Awesome!');

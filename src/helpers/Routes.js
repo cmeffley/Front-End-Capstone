@@ -8,6 +8,8 @@ import RacesFormView from '../views/RacesFormView';
 import WorkoutsView from '../views/WorkoutsView';
 import WorkoutsFormView from '../views/WorkoutsFormView';
 import RaceWorkoutsView from '../views/RaceWorkoutsView';
+import EditQuickWorkoutsView from '../views/EditQuickWorkoutsView';
+// import QuickWorkoutView from '../views/QuickWorkoutView';
 
 function Routes({ coach, athlete }) {
   return (
@@ -23,6 +25,13 @@ function Routes({ coach, athlete }) {
           coach={coach} athlete={athlete} />} />
         <Route exact path="/workouts" component={() => <WorkoutsView
           coach={coach} athlete={athlete} />} />
+        {/* <Route exact path="/quickWorkout" component={() => <QuickWorkoutView
+          coach={coach} athlete={athlete} />} /> */}
+        <PrivateRoute exact path="/editquickworkouts"
+          coach={coach}
+          component={() => <EditQuickWorkoutsView
+          coach={coach}/>}
+        />
         <PrivateRoute exact path="/addworkouts"
           coach={coach}
           component={() => <WorkoutsFormView

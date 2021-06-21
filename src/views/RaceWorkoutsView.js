@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
-import seeWorkoutsForRace from '../helpers/data/raceWorkoutsData';
+import { seeWorkoutsForRace } from '../helpers/data/raceWorkoutsData';
 import WorkoutCard from '../components/WorkoutCard';
 
 function RaceWorkoutsView({ coach, athlete }) {
