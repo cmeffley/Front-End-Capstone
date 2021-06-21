@@ -14,6 +14,7 @@ import {
 } from '../helpers/data/workoutsData';
 import { getAthletes } from '../helpers/data/athleteData';
 import { getAllRaces } from '../helpers/data/raceData';
+import { seeWorkoutsForRace } from '../helpers/data/raceWorkoutsData';
 
 function WorkoutsForm({
   coach, athlete, setWorkouts, formTitle, setRaceWorkout, setEditWorkout, ...workoutInfo
@@ -49,18 +50,20 @@ function WorkoutsForm({
     }));
   };
 
+  // deleteWorkoutCoach(workoutInfo.firebaseKey, coach.coachUid).then(() => seeWorkoutsForRace(workoutInfo.raceId).then((workoutArray) => setRaceWorkout(workoutArray.workout)));
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (addWorkouts.firebaseKey && workoutInfo.coachUid && workoutInfo.athleteUid) {
-      updateWorkoutCoach(addWorkouts, workoutInfo.coachUid).then((workoutArray) => {
-        setRaceWorkout(workoutArray);
+      updateWorkoutCoach(addWorkouts, workoutInfo.coachUid).then(() => seeWorkoutsForRace(workoutInfo.raceId).then((workoutArray) => {
+        setRaceWorkout(workoutArray.workout);
         setEditWorkout(false);
-      });
+      }));
     } else if (addWorkouts.firebaseKey && workoutInfo.athleteUid && workoutInfo.coachUid) {
-      updateWorkoutAthlete(addWorkouts, workoutInfo.athleteUid).then((workoutArray) => {
-        setRaceWorkout(workoutArray);
+      updateWorkoutAthlete(addWorkouts, workoutInfo.athleteUid).then(() => seeWorkoutsForRace(workoutInfo.raceId).then((workoutArray) => {
+        setRaceWorkout(workoutArray.workout);
         setEditWorkout(false);
-      });
+      }));
     } else if (coach !== null) {
       addWorkoutCoach(addWorkouts, workoutInfo.coachUid).then((workoutArray) => {
         setAddWorkouts(workoutArray);
