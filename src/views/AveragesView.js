@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import WorkoutAverages from '../components/WorkoutAverages';
 import { seeWorkoutsForRace } from '../helpers/data/raceWorkoutsData';
 
-function AveragesView({ coach, athlete }) {
+function AveragesView() {
   const [singlerace, setSingleRace] = useState({});
   const [workData, setWorkData] = useState([]);
   const isMounted = useRef(false);
@@ -34,22 +34,17 @@ function AveragesView({ coach, athlete }) {
       </header>
       <br />
       <div>
-        { workData.map((raceWorkoutObject) => <WorkoutAverages
-            key={raceWorkoutObject.firebaseKey}
-            {...raceWorkoutObject}
-            raceId={raceId}
-            coach={coach}
-            athlete={athlete}
-            setWorkData={setWorkData}
-            />)}
+        <WorkoutAverages
+          workData={workData}
+        />
       </div>
     </div>
   );
 }
 
-AveragesView.propTypes = {
-  coach: PropTypes.any,
-  athlete: PropTypes.any
-};
+// AveragesView.propTypes = {
+//   coach: PropTypes.any,
+//   athlete: PropTypes.any
+// };
 
 export default AveragesView;

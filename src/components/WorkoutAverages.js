@@ -7,10 +7,8 @@ import {
   CardTitle,
 } from 'reactstrap';
 
-function WorkoutAverages({
-  averages
-}) {
-  const getTotalMiles = averages.reduce((a, b) => a + b.totalMiles, 0);
+function WorkoutAverages({ workData }) {
+  const getTotalMiles = Number(workData.reduce((a, b) => (+a) + (+b.totalMiles), 0));
   return (
     <div>
       <Card>
@@ -30,10 +28,7 @@ function WorkoutAverages({
 }
 
 WorkoutAverages.propTypes = {
-  coach: PropTypes.any,
-  athlete: PropTypes.any,
-  averages: PropTypes.array,
-  setAverages: PropTypes.func,
+  workData: PropTypes.array,
 };
 
 export default WorkoutAverages;

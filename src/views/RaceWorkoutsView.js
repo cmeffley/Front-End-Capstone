@@ -4,7 +4,6 @@ import { useParams, useHistory } from 'react-router-dom';
 import { Button } from 'reactstrap';
 import { seeWorkoutsForRace } from '../helpers/data/raceWorkoutsData';
 import WorkoutCard from '../components/WorkoutCard';
-import AveragesView from './AveragesView';
 
 function RaceWorkoutsView({ coach, athlete }) {
   const [race, setRace] = useState({});
@@ -47,8 +46,7 @@ function RaceWorkoutsView({ coach, athlete }) {
             setRaceWorkout={setRaceWorkout}
             />)}
       </div>
-      <AveragesView />
-      <Button onClick={() => history.push('/averages')}>See Workout Data</Button>
+      <Button onClick={() => history.push(`/raceSchedule/${race.firebaseKey}/averages`)}>See Workout Data</Button>
     </div>
   );
 }

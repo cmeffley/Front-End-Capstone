@@ -24,7 +24,7 @@ function Routes({ coach, athlete }) {
           coach={coach} athlete={athlete} />} />
         <Route exact path="/addrace" component={() => <RacesFormView
           coach={coach} athlete={athlete} />} />
-        <Route exact path="/averages" component={() => <AveragesView
+        <Route exact path="/raceSchedule/:raceId/averages" component={() => <AveragesView
           coach={coach} athlete={athlete} />} />
         {/* <Route exact path="/workouts" component={() => <WorkoutsView
           coach={coach} athlete={athlete} />} /> */}
