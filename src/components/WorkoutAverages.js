@@ -8,7 +8,10 @@ import {
 } from 'reactstrap';
 
 function WorkoutAverages({ workData }) {
-  const getTotalMiles = Number(workData.reduce((a, b) => (+a) + (+b.totalMiles), 0));
+  const getTotalMiles = workData.reduce((a, b) => (+a) + (+b.totalMiles), 0);
+
+  const findAveragePace = workData.reduce((a, b) => (+a) + (+b.averagePace), 0) / workData.length;
+
   return (
     <div>
       <Card>
@@ -17,12 +20,12 @@ function WorkoutAverages({ workData }) {
           <CardText>{getTotalMiles}</CardText>
         </CardBody>
       </Card>
-      {/* <Card>
+      <Card>
         <CardTitle>Average Pace this Week</CardTitle>
         <CardBody>
-          <CardText>{averageInfo.totalMiles}</CardText>
+          <CardText>{findAveragePace}</CardText>
         </CardBody>
-      </Card> */}
+      </Card>
     </div>
   );
 }
