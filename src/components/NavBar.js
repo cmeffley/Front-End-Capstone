@@ -76,12 +76,12 @@ const NavBar = ({ coach, athlete }) => {
             <NavItem>
               <Link className="nav-link" to="/addrace">Add Race</Link>
             </NavItem>
-            <NavItem>
-              <Link className="nav-link" to="/workouts">Workouts</Link>
-            </NavItem>
             {/* <NavItem>
-              <Link className="nav-link" to="/quickWorkout">Quick Workouts</Link>
+              <Link className="nav-link" to="/workouts">Workouts</Link>
             </NavItem> */}
+            <NavItem>
+              <Link className="nav-link" to="/averages">Workout Data</Link>
+            </NavItem>
             { coach && coachOnly()}
           </Nav>
             <div className='auth-btn-container'>

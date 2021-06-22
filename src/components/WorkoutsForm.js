@@ -97,7 +97,7 @@ function WorkoutsForm({
       <Label>Start of Workout</Label>
       <Input
         name='startDay'
-        type='text'
+        type='date'
         value={addWorkouts.startDay}
         onChange={handleInputChange}
       />
@@ -109,7 +109,7 @@ function WorkoutsForm({
       <Label>Complete Workout By</Label>
       <Input
         name='dueDay'
-        type='text'
+        type='date'
         value={addWorkouts.dueDay}
         onChange={handleInputChange}
       />

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
+import { Button } from 'reactstrap';
 import { seeWorkoutsForRace } from '../helpers/data/raceWorkoutsData';
 import WorkoutCard from '../components/WorkoutCard';
 
@@ -8,6 +9,7 @@ function RaceWorkoutsView({ coach, athlete }) {
   const [race, setRace] = useState({});
   const [raceWorkout, setRaceWorkout] = useState([]);
   const isMounted = useRef(false);
+  const history = useHistory();
 
   useEffect(() => {
     isMounted.current = true;
@@ -26,6 +28,7 @@ function RaceWorkoutsView({ coach, athlete }) {
       isMounted.current = true;
     });
   }, []);
+
   return (
     <div>
       <header>
@@ -33,16 +36,17 @@ function RaceWorkoutsView({ coach, athlete }) {
       </header>
       <br />
       <h6>Workout Program starts: {race.startDate} and finishes on {race.endDate}</h6>
-    <div>
-      { raceWorkout.length <= 0 ? 'No Workout Created' : raceWorkout.map((raceWorkoutObject) => <WorkoutCard
-          key={raceWorkoutObject.firebaseKey}
-          {...raceWorkoutObject}
-          raceId={raceId}
-          coach={coach}
-          athlete={athlete}
-          setRaceWorkout={setRaceWorkout}
-          />)}
-    </div>
+      <div>
+        { raceWorkout.length <= 0 ? 'No Workout Created' : raceWorkout.map((raceWorkoutObject) => <WorkoutCard
+            key={raceWorkoutObject.firebaseKey}
+            {...raceWorkoutObject}
+            raceId={raceId}
+            coach={coach}
+            athlete={athlete}
+            setRaceWorkout={setRaceWorkout}
+            />)}
+      </div>
+      <Button onClick={() => history.push(`/raceSchedule/${race.firebaseKey}/averages`)}>See Workout Data</Button>
     </div>
   );
 }
