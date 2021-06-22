@@ -29,6 +29,10 @@ function RaceWorkoutsView({ coach, athlete }) {
     });
   }, []);
 
+  const sortWorkouts = () => {
+    raceWorkout.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
+    console.warn(raceWorkout);
+  };
   return (
     <div>
       <header>
@@ -36,6 +40,7 @@ function RaceWorkoutsView({ coach, athlete }) {
       </header>
       <br />
       <h6>Workout Program starts: {race.startDate} and finishes on {race.endDate}</h6>
+      <Button onClick={sortWorkouts}>Order Workouts by Date</Button>
       <div>
         { raceWorkout.length <= 0 ? 'No Workout Created' : raceWorkout.map((raceWorkoutObject) => <WorkoutCard
             key={raceWorkoutObject.firebaseKey}
@@ -43,6 +48,7 @@ function RaceWorkoutsView({ coach, athlete }) {
             raceId={raceId}
             coach={coach}
             athlete={athlete}
+            raceWorkout={raceWorkout}
             setRaceWorkout={setRaceWorkout}
             />)}
       </div>

@@ -20,6 +20,7 @@ import QuickWorkout from './QuickWorkout';
 function WorkoutCard({
   coach,
   athlete,
+  raceWorkout,
   setRaceWorkout,
   setWorkouts,
   ...raceWorkoutObject
@@ -95,6 +96,7 @@ WorkoutCard.propTypes = {
   athlete: PropTypes.any,
   raceWorkoutObject: PropTypes.object,
   setWorkouts: PropTypes.func,
+  raceWorkout: PropTypes.array,
   setRaceWorkout: PropTypes.func,
 };
 
