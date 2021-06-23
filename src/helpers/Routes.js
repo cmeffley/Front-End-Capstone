@@ -10,6 +10,7 @@ import WorkoutsFormView from '../views/WorkoutsFormView';
 import RaceWorkoutsView from '../views/RaceWorkoutsView';
 import EditQuickWorkoutsView from '../views/EditQuickWorkoutsView';
 import AveragesView from '../views/AveragesView';
+import SingleWorkout from '../views/SingleWorkout';
 // import QuickWorkoutView from '../views/QuickWorkoutView';
 
 function Routes({ coach, athlete }) {
@@ -25,6 +26,8 @@ function Routes({ coach, athlete }) {
         <Route exact path="/addrace" component={() => <RacesFormView
           coach={coach} athlete={athlete} />} />
         <Route exact path="/raceSchedule/:raceId/averages" component={() => <AveragesView
+          coach={coach} athlete={athlete} />} />
+        <Route exact path="/raceSchedule/:raceId/:workoutFirebaseKey" component={() => <SingleWorkout
           coach={coach} athlete={athlete} />} />
         {/* <Route exact path="/workouts" component={() => <WorkoutsView
           coach={coach} athlete={athlete} />} /> */}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import {
   Card,
   CardText,
@@ -21,11 +22,12 @@ function WorkoutCard({
   coach,
   athlete,
   setRaceWorkout,
-  setWorkouts,
+  race,
   ...raceWorkoutObject
 }) {
   const [editWorkout, setEditWorkout] = useState(false);
   const [modal, setModal] = useState(false);
+  const history = useHistory();
   const toggle = () => setModal(!modal);
 
   const handleClick = (type) => {
@@ -56,9 +58,11 @@ function WorkoutCard({
         <CardBody>
           <CardText>{raceWorkoutObject.day}</CardText>
           <CardText>{raceWorkoutObject.startDay}</CardText>
-          <CardText>{raceWorkoutObject.dueDay}</CardText>
           <CardText>{raceWorkoutObject.workoutType}</CardText>
-          <CardText>{raceWorkoutObject.plannedWork}</CardText>
+          <div>
+          <Button onClick={() => history.push(`/raceSchedule/${race.firebaseKey}/${raceWorkoutObject.firebaseKey}`)}>Details</Button>
+          </div>
+          {/* <CardText>{raceWorkoutObject.plannedWork}</CardText> */}
           <Label check>
             <Input type='checkbox' checked={raceWorkoutObject.completed}/>Completed
           </Label>
@@ -71,16 +75,21 @@ function WorkoutCard({
           {coach
             ? <Button color='danger' onClick={() => handleClick('delete')}>
               Delete Workout </Button> : ''}
-          <Button color='warning' onClick={() => handleClick('edit')}>
+          { athlete
+            ? <Button color='warning' onClick={() => handleClick('edit')}
+            disabled={new Date() > new Date(raceWorkoutObject.dueDay)}>
             { editWorkout ? 'Close Form' : 'Edit Workout'}
-          </Button>
+          </Button> : '' }
+          { coach
+            ? <Button color='warning' onClick={() => handleClick('edit')}>
+            { editWorkout ? 'Close Form' : 'Edit Workout'}
+          </Button> : '' }
             {
               editWorkout && <WorkoutsForm
                 formTitle='Edit Workout'
                 {...raceWorkoutObject}
                 coach={coach}
                 athlete={athlete}
-                setWorkouts={setWorkouts}
                 setEditWorkout={setEditWorkout}
                 setRaceWorkout={setRaceWorkout}
               />}
@@ -94,8 +103,8 @@ WorkoutCard.propTypes = {
   coach: PropTypes.any,
   athlete: PropTypes.any,
   raceWorkoutObject: PropTypes.object,
-  setWorkouts: PropTypes.func,
   setRaceWorkout: PropTypes.func,
+  race: PropTypes.object
 };
 
 export default WorkoutCard;

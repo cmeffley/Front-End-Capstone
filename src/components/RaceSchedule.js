@@ -45,7 +45,9 @@ function RaceSchedule({
           <CardText>{raceInfo.raceDistance}</CardText>
           <CardText>{raceInfo.raceDate}</CardText>
           <CardText><a href={raceInfo.raceLink}>Race Website</a></CardText>
-          <Button onClick={goToWorkouts}>See Race Workout Program</Button>
+          <Button onClick={goToWorkouts}
+            disabled={new Date() > new Date(raceInfo.raceDate)}
+          >See Race Workout Program</Button>
           {coach ? <Button color='success' onClick={() => handleClick('coachDelete')}>Delete</Button>
             : <Button color='danger' onClick={() => handleClick('athleteDelete')}>Delete</Button>}
           <Button color='info' onClick={() => handleClick('edit')}>

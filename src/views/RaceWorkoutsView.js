@@ -8,9 +8,10 @@ import WorkoutCard from '../components/WorkoutCard';
 function RaceWorkoutsView({ coach, athlete }) {
   const [race, setRace] = useState({});
   const [raceWorkout, setRaceWorkout] = useState([]);
+  const [sorted, setSorted] = useState([]);
+  console.warn(sorted);
   const isMounted = useRef(false);
   const history = useHistory();
-
   useEffect(() => {
     isMounted.current = true;
     return () => {
@@ -29,6 +30,11 @@ function RaceWorkoutsView({ coach, athlete }) {
     });
   }, []);
 
+  const sortWorkouts = () => {
+    const getsortedWorkouts = raceWorkout.sort((a, b) => Date.parse(a.startDay) - Date.parse(b.startDay));
+    setSorted(getsortedWorkouts);
+  };
+
   return (
     <div>
       <header>
@@ -36,10 +42,12 @@ function RaceWorkoutsView({ coach, athlete }) {
       </header>
       <br />
       <h6>Workout Program starts: {race.startDate} and finishes on {race.endDate}</h6>
+      <Button onClick={sortWorkouts}>Order Workouts by Date</Button>
       <div>
         { raceWorkout.length <= 0 ? 'No Workout Created' : raceWorkout.map((raceWorkoutObject) => <WorkoutCard
             key={raceWorkoutObject.firebaseKey}
             {...raceWorkoutObject}
+            race={race}
             raceId={raceId}
             coach={coach}
             athlete={athlete}
