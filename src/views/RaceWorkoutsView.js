@@ -8,9 +8,10 @@ import WorkoutCard from '../components/WorkoutCard';
 function RaceWorkoutsView({ coach, athlete }) {
   const [race, setRace] = useState({});
   const [raceWorkout, setRaceWorkout] = useState([]);
+  const [sorted, setSorted] = useState([]);
   const isMounted = useRef(false);
   const history = useHistory();
-
+  console.warn('hello', race, raceWorkout);
   useEffect(() => {
     isMounted.current = true;
     return () => {
@@ -29,10 +30,22 @@ function RaceWorkoutsView({ coach, athlete }) {
     });
   }, []);
 
+  // raceWorkout.sort((a, b) => Date.parse(b.startDay) - Date.parse(a.startDay));
+  // raceWorkout.sort((a, b) => Date.parse(b.startDay) > Date.parse(a.startDay));
   const sortWorkouts = () => {
-    raceWorkout.sort((a, b) => new Date(b.startDate) - new Date(a.startDate));
-    console.warn(raceWorkout);
+    const getsortedWorkouts = raceWorkout.sort((a, b) => {
+      // const aSplit = a.startDay.split('-');
+      // const bSplit = b.startDay.split('-');
+      const aDate = Date.parse(a.startDay);
+      const bDate = Date.parse(b.startDay);
+      console.warn(bDate - aDate);
+      return bDate - aDate;
+    });
+    console.warn('stuff', getsortedWorkouts);
+    setSorted(getsortedWorkouts);
+    console.warn('sorted', sorted);
   };
+
   return (
     <div>
       <header>
@@ -45,10 +58,11 @@ function RaceWorkoutsView({ coach, athlete }) {
         { raceWorkout.length <= 0 ? 'No Workout Created' : raceWorkout.map((raceWorkoutObject) => <WorkoutCard
             key={raceWorkoutObject.firebaseKey}
             {...raceWorkoutObject}
+            race={race}
             raceId={raceId}
             coach={coach}
             athlete={athlete}
-            raceWorkout={raceWorkout}
+            // raceWorkout={raceWorkout}
             setRaceWorkout={setRaceWorkout}
             />)}
       </div>

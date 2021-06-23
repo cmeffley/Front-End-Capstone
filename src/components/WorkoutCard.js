@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import {
   Card,
   CardText,
@@ -20,13 +21,15 @@ import QuickWorkout from './QuickWorkout';
 function WorkoutCard({
   coach,
   athlete,
-  raceWorkout,
+  // raceWorkout,
   setRaceWorkout,
   setWorkouts,
+  race,
   ...raceWorkoutObject
 }) {
   const [editWorkout, setEditWorkout] = useState(false);
   const [modal, setModal] = useState(false);
+  const history = useHistory();
   const toggle = () => setModal(!modal);
 
   const handleClick = (type) => {
@@ -72,9 +75,16 @@ function WorkoutCard({
           {coach
             ? <Button color='danger' onClick={() => handleClick('delete')}>
               Delete Workout </Button> : ''}
-          <Button color='warning' onClick={() => handleClick('edit')}>
+          { athlete
+            ? <Button color='warning' onClick={() => handleClick('edit')}
+            disabled={new Date() > new Date(raceWorkoutObject.dueDay)}>
             { editWorkout ? 'Close Form' : 'Edit Workout'}
-          </Button>
+          </Button> : '' }
+          { coach
+            ? <Button color='warning' onClick={() => handleClick('edit')}>
+            { editWorkout ? 'Close Form' : 'Edit Workout'}
+          </Button> : '' }
+          <Button onClick={() => history.push(`/raceSchedule/${race.firebaseKey}/${raceWorkoutObject.firebaseKey}`)}>Single Workout </Button>
             {
               editWorkout && <WorkoutsForm
                 formTitle='Edit Workout'
@@ -96,8 +106,9 @@ WorkoutCard.propTypes = {
   athlete: PropTypes.any,
   raceWorkoutObject: PropTypes.object,
   setWorkouts: PropTypes.func,
-  raceWorkout: PropTypes.array,
+  // raceWorkout: PropTypes.array,
   setRaceWorkout: PropTypes.func,
+  race: PropTypes.object
 };
 
 export default WorkoutCard;
