@@ -49,7 +49,7 @@ body {
   justify-content: space-evenly;
 }
 
-.workoutContainer, .singleworkoutContainer {
+.workoutContainer, .singleworkoutContainer, .workoutdataContainer {
   color: rgb(207, 206, 206);
   display: flex;
   flex-direction: column;
@@ -63,19 +63,54 @@ body {
 }
 
 .workoutCard {
-  color: white;
+  border: black 2px solid !important;
+  color: black;
   width: 40rem;
   height: auto;
   text-align: center;
   margin: 10px;
-  background-color: #b16c6b !important;
+  background-color: #9bdae2 !important;
 }
 
 .raceCard {
+  border: black 2px solid !important;
   color: white;
   width: 35rem;
   height: auto;
   text-align: center;
   margin: 15px;
   background-color: #b16c6b !important;
+}
+
+.workoutformContainer, .racesformContainer {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.workoutinputContainer, .racesinputContainer {
+  border: white solid 1px;
+  color: white;
+  margin: auto;
+  width: 50%;
+  text-align: center;
+}
+
+.quickWorkEditFormContainer {
+  border: white solid 1px;
+  color: white;
+  margin: 20px auto;
+  width: 50%;
+  text-align: center;
+}
+
+.datacards {
+  border: black 2px solid !important;
+  color: black;
+  width: 35rem;
+  height: auto;
+  text-align: center;
+  margin: 10px;
+  background-color: #9bdae2 !important;
 }

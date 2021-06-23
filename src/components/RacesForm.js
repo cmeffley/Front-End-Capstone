@@ -72,7 +72,7 @@ function RacesForm({
   };
 
   return (
-    <div>
+    <div className='racesinputContainer'>
       <Form
         className='raceInputForm'
         autoComplete='off'

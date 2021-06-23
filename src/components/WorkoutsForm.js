@@ -71,7 +71,7 @@ function WorkoutsForm({
   };
 
   return (
-    <div>
+    <div className='workoutinputContainer'>
       <Form
         className='workoutInputForm'
         autoComplete='off'

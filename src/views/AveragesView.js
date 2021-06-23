@@ -28,7 +28,7 @@ function AveragesView() {
   }, []);
 
   return (
-    <div>
+    <div className='workoutdataContainer'>
       <header>
         <h2>{singlerace.raceName} Data</h2>
       </header>

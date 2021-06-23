@@ -4,7 +4,7 @@ import WorkoutsForm from '../components/WorkoutsForm';
 
 function WorkoutsFormView({ coach, athlete }) {
   return (
-    <div>
+    <div className='workoutformContainer'>
       <WorkoutsForm
         formTitle='Create Workout'
         coach={coach}

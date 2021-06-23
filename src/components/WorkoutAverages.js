@@ -14,13 +14,13 @@ function WorkoutAverages({ workData }) {
 
   return (
     <div>
-      <Card>
+      <Card className='datacards'>
         <CardTitle>Total Miles this Week</CardTitle>
         <CardBody>
           <CardText>{getTotalMiles}</CardText>
         </CardBody>
       </Card>
-      <Card>
+      <Card className='datacards'>
         <CardTitle>Average Pace this Week</CardTitle>
         <CardBody>
           <CardText>{findAveragePace}</CardText>

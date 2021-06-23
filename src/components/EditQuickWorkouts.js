@@ -48,7 +48,7 @@ function EditQuickWorkouts({
   };
 
   return (
-    <div>
+    <div className='quickWorkEditFormContainer'>
       <Form
         className='editQuickWorkoutForm'
         autoComplete='off'
