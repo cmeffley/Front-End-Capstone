@@ -17,7 +17,7 @@ import { getAllRaces } from '../helpers/data/raceData';
 import { seeWorkoutsForRace } from '../helpers/data/raceWorkoutsData';
 
 function WorkoutsForm({
-  coach, athlete, setWorkouts, formTitle, setRaceWorkout, setEditWorkout, ...workoutInfo
+  coach, athlete, formTitle, setRaceWorkout, setEditWorkout, ...workoutInfo
 }) {
   const [addWorkouts, setAddWorkouts] = useState({
     day: workoutInfo?.day || '',
@@ -49,8 +49,6 @@ function WorkoutsForm({
       [e.target.name]: e.target.value
     }));
   };
-
-  // deleteWorkoutCoach(workoutInfo.firebaseKey, coach.coachUid).then(() => seeWorkoutsForRace(workoutInfo.raceId).then((workoutArray) => setRaceWorkout(workoutArray.workout)));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -239,7 +237,6 @@ WorkoutsForm.propTypes = {
   coach: PropTypes.any,
   athlete: PropTypes.any,
   workoutInfo: PropTypes.object,
-  setWorkouts: PropTypes.func,
   formTitle: PropTypes.string,
   setEditWorkout: PropTypes.func,
   setRaceWorkout: PropTypes.func

@@ -21,9 +21,7 @@ import QuickWorkout from './QuickWorkout';
 function WorkoutCard({
   coach,
   athlete,
-  // raceWorkout,
   setRaceWorkout,
-  setWorkouts,
   race,
   ...raceWorkoutObject
 }) {
@@ -60,9 +58,11 @@ function WorkoutCard({
         <CardBody>
           <CardText>{raceWorkoutObject.day}</CardText>
           <CardText>{raceWorkoutObject.startDay}</CardText>
-          <CardText>{raceWorkoutObject.dueDay}</CardText>
           <CardText>{raceWorkoutObject.workoutType}</CardText>
-          <CardText>{raceWorkoutObject.plannedWork}</CardText>
+          <div>
+          <Button onClick={() => history.push(`/raceSchedule/${race.firebaseKey}/${raceWorkoutObject.firebaseKey}`)}>Details</Button>
+          </div>
+          {/* <CardText>{raceWorkoutObject.plannedWork}</CardText> */}
           <Label check>
             <Input type='checkbox' checked={raceWorkoutObject.completed}/>Completed
           </Label>
@@ -84,14 +84,12 @@ function WorkoutCard({
             ? <Button color='warning' onClick={() => handleClick('edit')}>
             { editWorkout ? 'Close Form' : 'Edit Workout'}
           </Button> : '' }
-          <Button onClick={() => history.push(`/raceSchedule/${race.firebaseKey}/${raceWorkoutObject.firebaseKey}`)}>Single Workout </Button>
             {
               editWorkout && <WorkoutsForm
                 formTitle='Edit Workout'
                 {...raceWorkoutObject}
                 coach={coach}
                 athlete={athlete}
-                setWorkouts={setWorkouts}
                 setEditWorkout={setEditWorkout}
                 setRaceWorkout={setRaceWorkout}
               />}
@@ -105,8 +103,6 @@ WorkoutCard.propTypes = {
   coach: PropTypes.any,
   athlete: PropTypes.any,
   raceWorkoutObject: PropTypes.object,
-  setWorkouts: PropTypes.func,
-  // raceWorkout: PropTypes.array,
   setRaceWorkout: PropTypes.func,
   race: PropTypes.object
 };

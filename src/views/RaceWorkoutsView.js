@@ -9,9 +9,9 @@ function RaceWorkoutsView({ coach, athlete }) {
   const [race, setRace] = useState({});
   const [raceWorkout, setRaceWorkout] = useState([]);
   const [sorted, setSorted] = useState([]);
+  console.warn(sorted);
   const isMounted = useRef(false);
   const history = useHistory();
-  console.warn('hello', race, raceWorkout);
   useEffect(() => {
     isMounted.current = true;
     return () => {
@@ -30,20 +30,9 @@ function RaceWorkoutsView({ coach, athlete }) {
     });
   }, []);
 
-  // raceWorkout.sort((a, b) => Date.parse(b.startDay) - Date.parse(a.startDay));
-  // raceWorkout.sort((a, b) => Date.parse(b.startDay) > Date.parse(a.startDay));
   const sortWorkouts = () => {
-    const getsortedWorkouts = raceWorkout.sort((a, b) => {
-      // const aSplit = a.startDay.split('-');
-      // const bSplit = b.startDay.split('-');
-      const aDate = Date.parse(a.startDay);
-      const bDate = Date.parse(b.startDay);
-      console.warn(bDate - aDate);
-      return bDate - aDate;
-    });
-    console.warn('stuff', getsortedWorkouts);
+    const getsortedWorkouts = raceWorkout.sort((a, b) => Date.parse(a.startDay) - Date.parse(b.startDay));
     setSorted(getsortedWorkouts);
-    console.warn('sorted', sorted);
   };
 
   return (
@@ -62,7 +51,6 @@ function RaceWorkoutsView({ coach, athlete }) {
             raceId={raceId}
             coach={coach}
             athlete={athlete}
-            // raceWorkout={raceWorkout}
             setRaceWorkout={setRaceWorkout}
             />)}
       </div>
