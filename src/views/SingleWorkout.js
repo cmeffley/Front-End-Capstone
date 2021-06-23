@@ -28,9 +28,9 @@ function SingleWorkout() {
   const getMotivation = motivation[Math.floor(Math.random() * motivation.length)];
 
   return (
-    <div>
+    <div className='singleworkoutContainer'>
       <Button onClick={() => history.push(`/raceSchedule/${raceId}`)}>Back</Button>
-      <Card>
+      <Card className='workoutCard'>
         <CardBody>
           <CardText>Complete Workout By:<br/>
             {oneWorkout.dueDay}</CardText>

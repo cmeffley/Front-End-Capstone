@@ -14,7 +14,7 @@ function RaceScheduleView({ coach, athlete }) {
   }, []);
 
   return (
-    <div>
+    <div className='raceviewContainer'>
       {races.map((raceInfo) => (
           <RaceSchedule
             key={raceInfo.firebaseKey}

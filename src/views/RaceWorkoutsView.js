@@ -36,7 +36,7 @@ function RaceWorkoutsView({ coach, athlete }) {
   };
 
   return (
-    <div>
+    <div className='workoutContainer'>
       <header>
         <h1>{race.raceName}</h1>
       </header>

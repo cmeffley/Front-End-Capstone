@@ -65,7 +65,7 @@ const NavBar = ({ coach, athlete }) => {
           </ModalFooter>
         </Modal>
       </>
-      <Navbar color="dark" dark expand="md">
+      <Navbar className='navigation' dark expand="md">
         <NavbarBrand href="/">Home</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>

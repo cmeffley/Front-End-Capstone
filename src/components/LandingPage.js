@@ -13,24 +13,28 @@ function LandingPage({ coach, athlete }) {
   };
 
   return (
-    <div>
-      <h1>Welcome to Trainer</h1>
+    <div className='landingContent'>
+      <div className='welcome'>
+        <h1>Welcome to Traine<span className='letter'>R</span></h1>
+      </div>
+      <div className='landingButtons'>
       { coach !== null
-          && <div>
+          && <>
             {
               coach ? <Button color='warning' onClick={signOutUser}>Coach SignOut?</Button>
                 : <Button color='info' onClick={signInAndGo}>Coach Sign In</Button>
             }
-              </div>
-      }<br />
+            </>
+      }
       { athlete !== null
-          && <div>
+          && <>
             {
               athlete ? <Button color='danger' onClick={signOutUser}>Athlete SignOut?</Button>
                 : <Button color='success' onClick={signInAndGo}>Athlete Sign In</Button>
             }
-              </div>
+              </>
             }
+      </div>
     </div>
   );
 }

@@ -39,20 +39,22 @@ function RaceSchedule({
 
   return (
     <div>
-      <Card>
-        <CardTitle tag='h5'>{raceInfo.raceName}</CardTitle>
+      <Card className='raceCard'>
+        <CardTitle tag='h3'>{raceInfo.raceName}</CardTitle>
         <CardBody>
           <CardText>{raceInfo.raceDistance}</CardText>
           <CardText>{raceInfo.raceDate}</CardText>
           <CardText><a href={raceInfo.raceLink}>Race Website</a></CardText>
-          <Button onClick={goToWorkouts}
-            disabled={new Date() > new Date(raceInfo.raceDate)}
-          >See Race Workout Program</Button>
           {coach ? <Button color='success' onClick={() => handleClick('coachDelete')}>Delete</Button>
             : <Button color='danger' onClick={() => handleClick('athleteDelete')}>Delete</Button>}
+          <br/>
           <Button color='info' onClick={() => handleClick('edit')}>
             {editRace ? 'Close Form' : 'Edit Race'}
           </Button>
+          <br/>
+          <Button onClick={goToWorkouts}
+            disabled={new Date() > new Date(raceInfo.raceDate)}
+          >See Race Workout Program</Button>
           {
             editRace && <RacesForm
               formTitle='Edit Race'

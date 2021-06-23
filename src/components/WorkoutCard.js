@@ -54,7 +54,7 @@ function WorkoutCard({
           <Button color="secondary" onClick={toggle}>Close</Button>
         </ModalFooter>
       </Modal>
-      <Card>
+      <Card className='workoutCard'>
         <CardBody>
           <CardText>{raceWorkoutObject.day}</CardText>
           <CardText>{raceWorkoutObject.startDay}</CardText>
@@ -62,7 +62,6 @@ function WorkoutCard({
           <div>
           <Button onClick={() => history.push(`/raceSchedule/${race.firebaseKey}/${raceWorkoutObject.firebaseKey}`)}>Details</Button>
           </div>
-          {/* <CardText>{raceWorkoutObject.plannedWork}</CardText> */}
           <Label check>
             <Input type='checkbox' checked={raceWorkoutObject.completed}/>Completed
           </Label>
