@@ -21,16 +21,16 @@ function LandingPage({ coach, athlete }) {
       { coach !== null
           && <>
             {
-              coach ? <Button color='warning' onClick={signOutUser}>Coach SignOut?</Button>
-                : <Button color='info' onClick={signInAndGo}>Coach Sign In</Button>
+              coach ? <Button id='authbutton' onClick={signOutUser}>Coach SignOut</Button>
+                : <Button id='otherbuttoncolor' onClick={signInAndGo}>Coach Sign In</Button>
             }
             </>
       }
       { athlete !== null
           && <>
             {
-              athlete ? <Button color='danger' onClick={signOutUser}>Athlete SignOut?</Button>
-                : <Button color='success' onClick={signInAndGo}>Athlete Sign In</Button>
+              athlete ? <Button id='authbutton' onClick={signOutUser}>Athlete SignOut</Button>
+                : <Button id='otherbuttoncolor' onClick={signInAndGo}>Athlete Sign In</Button>
             }
               </>
             }

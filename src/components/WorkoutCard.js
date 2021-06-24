@@ -7,12 +7,13 @@ import {
   CardBody,
   Label,
   Input,
-  Button,
+  // Button,
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter
 } from 'reactstrap';
+import { Button, Icon } from 'semantic-ui-react';
 import { deleteWorkoutCoach } from '../helpers/data/workoutsData';
 import { seeWorkoutsForRace } from '../helpers/data/raceWorkoutsData';
 import WorkoutsForm from './WorkoutsForm';
@@ -60,8 +61,9 @@ function WorkoutCard({
           <CardText>{raceWorkoutObject.startDay}</CardText>
           <CardText>{raceWorkoutObject.workoutType}</CardText>
           <div>
-          <Button onClick={() => history.push(`/raceSchedule/${race.firebaseKey}/${raceWorkoutObject.firebaseKey}`)}>Details</Button>
+          <Button id='gotoworkbutton' onClick={() => history.push(`/raceSchedule/${race.firebaseKey}/${raceWorkoutObject.firebaseKey}`)}>Details</Button>
           </div>
+          <br/>
           <Label check>
             <Input type='checkbox' checked={raceWorkoutObject.completed}/>Completed
           </Label>
@@ -70,18 +72,17 @@ function WorkoutCard({
           <CardText>{raceWorkoutObject.averagePace}</CardText>
           { coach
             ? ''
-            : <Button onClick={toggle}>Short on Time</Button> }
+            : <Button id='buttoncolor' floated='left' onClick={toggle}>Short on Time</Button> }
           {coach
-            ? <Button color='danger' onClick={() => handleClick('delete')}>
-              Delete Workout </Button> : ''}
+            ? <Button id='buttoncolor' floated='left' icon='trash alternate' onClick={() => handleClick('delete')}></Button> : ''}
           { athlete
-            ? <Button color='warning' onClick={() => handleClick('edit')}
+            ? <Button id='buttoncolor' floated='right' onClick={() => handleClick('edit')}
             disabled={new Date() > new Date(raceWorkoutObject.dueDay)}>
-            { editWorkout ? 'Close Form' : 'Edit Workout'}
+            { editWorkout ? <Icon name='close'/> : <Icon name='edit'/>}
           </Button> : '' }
           { coach
-            ? <Button color='warning' onClick={() => handleClick('edit')}>
-            { editWorkout ? 'Close Form' : 'Edit Workout'}
+            ? <Button id='buttoncolor' floated='right' onClick={() => handleClick('edit')}>
+            { editWorkout ? <Icon name='close'/> : <Icon name='edit'/>}
           </Button> : '' }
             {
               editWorkout && <WorkoutsForm

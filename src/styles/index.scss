@@ -9,8 +9,12 @@ body {
   background-color: #557e90;
 }
 
+.nav-link {
+  color: white !important;
+}
+
 .landingContainer {
-  height: 100vh;
+  height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -56,6 +60,10 @@ body {
   align-items: center;
 }
 
+.raceh1 {
+  color: rgb(207, 206, 206);
+}
+
 .raceviewContainer {
   display: flex;
   flex-direction: column;
@@ -70,6 +78,7 @@ body {
   text-align: center;
   margin: 10px;
   background-color: #9bdae2 !important;
+  box-shadow: 5px 5px black;
 }
 
 .raceCard {
@@ -80,17 +89,18 @@ body {
   text-align: center;
   margin: 15px;
   background-color: #b16c6b !important;
+  box-shadow: 5px 5px black;
 }
 
 .workoutformContainer, .racesformContainer {
-  height: 100vh;
+  height: 90vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .workoutinputContainer, .racesinputContainer {
-  border: white solid 1px;
+  // border: white solid 1px;
   color: white;
   margin: auto;
   width: 50%;
@@ -113,4 +123,36 @@ body {
   text-align: center;
   margin: 10px;
   background-color: #9bdae2 !important;
+  box-shadow: 5px 5px black;
+}
+
+#weatherimage {
+  height: 125px;
+  width: 125px;
+}
+
+#weatherCard {
+  align-items: center;
+}
+
+#buttoncolor {
+  background-color: #8aa956;
+}
+
+#gotoworkbutton {
+  background-color: #303838;
+  color: white;
+}
+
+#authbutton {
+  background-color: #b16c6b;
+}
+
+.line {
+  border-left: 3px solid black;
+  height: 35px;
+}
+
+#otherbuttoncolor {
+  background-color: #a95e42;
 }

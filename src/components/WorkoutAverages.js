@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useParams, useHistory } from 'react-router-dom';
 import {
   Card,
   CardText,
   CardBody,
   CardTitle,
 } from 'reactstrap';
+import { Button, Icon } from 'semantic-ui-react';
 
 function WorkoutAverages({ workData }) {
+  const history = useHistory();
+  const { raceId } = useParams();
   const getTotalMiles = workData.reduce((a, b) => (+a) + (+b.totalMiles), 0);
 
   const findAveragePace = workData.reduce((a, b) => (+a) + (+b.averagePace), 0) / workData.length;
@@ -26,6 +30,8 @@ function WorkoutAverages({ workData }) {
           <CardText>{findAveragePace}</CardText>
         </CardBody>
       </Card>
+      <Button id='buttoncolor' attached='bottom' onClick={() => history.push(`/raceSchedule/${raceId}`)}>
+        <Icon name='left arrow'/>Back</Button>
     </div>
   );
 }

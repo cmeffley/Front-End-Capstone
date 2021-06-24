@@ -151,7 +151,8 @@ function RacesForm({
               </option>)}
         </Input>
         }
-        <Button color='primary' type='submit'>Submit</Button>
+        <br/>
+        <Button id='otherbuttoncolor' type='submit'>Submit</Button>
       </Form>
     </div>
   );
