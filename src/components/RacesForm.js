@@ -72,7 +72,7 @@ function RacesForm({
   };
 
   return (
-    <div>
+    <div className='racesinputContainer'>
       <Form
         className='raceInputForm'
         autoComplete='off'
@@ -96,7 +96,7 @@ function RacesForm({
         <Label>Date of Race</Label>
         <Input
           name='raceDate'
-          type='text'
+          type='date'
           value={addRaces.raceDate}
           onChange={handleInputChange}
         />
@@ -110,14 +110,14 @@ function RacesForm({
         <Label>Workout Program Start Date:</Label>
         <Input
           name='startDate'
-          type='text'
+          type='date'
           value={addRaces.startDate}
           onChange={handleInputChange}
         />
         <Label>Workout Program End Date:</Label>
         <Input
           name='endDate'
-          type='text'
+          type='date'
           value={addRaces.endDate}
           onChange={handleInputChange}
         />
@@ -151,7 +151,8 @@ function RacesForm({
               </option>)}
         </Input>
         }
-        <Button color='primary' type='submit'>Submit</Button>
+        <br/>
+        <Button id='otherbuttoncolor' type='submit'>Submit</Button>
       </Form>
     </div>
   );

@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import {
   Card,
   CardText,
   CardBody,
   Label,
   Input,
-  Button,
+  // Button,
   Modal,
   ModalHeader,
   ModalBody,
   ModalFooter
 } from 'reactstrap';
+import { Button, Icon } from 'semantic-ui-react';
 import { deleteWorkoutCoach } from '../helpers/data/workoutsData';
 import { seeWorkoutsForRace } from '../helpers/data/raceWorkoutsData';
 import WorkoutsForm from './WorkoutsForm';
@@ -21,11 +23,12 @@ function WorkoutCard({
   coach,
   athlete,
   setRaceWorkout,
-  setWorkouts,
-  ...workoutInfo
+  race,
+  ...raceWorkoutObject
 }) {
   const [editWorkout, setEditWorkout] = useState(false);
   const [modal, setModal] = useState(false);
+  const history = useHistory();
   const toggle = () => setModal(!modal);
 
   const handleClick = (type) => {
@@ -34,7 +37,7 @@ function WorkoutCard({
         setEditWorkout((prevState) => !prevState);
         break;
       case 'delete':
-        deleteWorkoutCoach(workoutInfo.firebaseKey, coach.coachUid).then(() => seeWorkoutsForRace(workoutInfo.raceId).then((workoutArray) => setRaceWorkout(workoutArray.workout)));
+        deleteWorkoutCoach(raceWorkoutObject.firebaseKey, coach.coachUid).then(() => seeWorkoutsForRace(raceWorkoutObject.raceId).then((workoutArray) => setRaceWorkout(workoutArray.workout)));
         break;
       default:
         console.warn('Keep Being Awesome!');
@@ -52,35 +55,41 @@ function WorkoutCard({
           <Button color="secondary" onClick={toggle}>Close</Button>
         </ModalFooter>
       </Modal>
-      <Card>
+      <Card className='workoutCard'>
         <CardBody>
-          <CardText>{workoutInfo.day}</CardText>
-          <CardText>{workoutInfo.startDay}</CardText>
-          <CardText>{workoutInfo.dueDay}</CardText>
-          <CardText>{workoutInfo.workoutType}</CardText>
-          <CardText>{workoutInfo.plannedWork}</CardText>
+          <CardText>{raceWorkoutObject.day}</CardText>
+          <CardText>{raceWorkoutObject.startDay}</CardText>
+          <CardText>{raceWorkoutObject.workoutType}</CardText>
+          <div>
+          <Button id='gotoworkbutton' onClick={() => history.push(`/raceSchedule/${race.firebaseKey}/${raceWorkoutObject.firebaseKey}`)}>Details</Button>
+          </div>
+          <br/>
           <Label check>
-            <Input type='checkbox' checked={workoutInfo.completed}/>Completed
+            <Input type='checkbox' checked={raceWorkoutObject.completed}/>Completed
           </Label>
-          <CardText>{workoutInfo.actualWork}</CardText>
-          <CardText>{workoutInfo.totalMiles}</CardText>
-          <CardText>{workoutInfo.averagePace}</CardText>
+          <CardText>{raceWorkoutObject.actualWork}</CardText>
+          <CardText>{raceWorkoutObject.totalMiles}</CardText>
+          <CardText>{raceWorkoutObject.averagePace}</CardText>
           { coach
             ? ''
-            : <Button onClick={toggle}>Short on Time</Button> }
+            : <Button id='buttoncolor' floated='left' onClick={toggle}>Short on Time</Button> }
           {coach
-            ? <Button color='danger' onClick={() => handleClick('delete')}>
-              Delete Workout </Button> : ''}
-          <Button color='warning' onClick={() => handleClick('edit')}>
-            { editWorkout ? 'Close Form' : 'Edit Workout'}
-          </Button>
+            ? <Button id='buttoncolor' floated='left' icon='trash alternate' onClick={() => handleClick('delete')}></Button> : ''}
+          { athlete
+            ? <Button id='buttoncolor' floated='right' onClick={() => handleClick('edit')}
+            disabled={new Date() > new Date(raceWorkoutObject.dueDay)}>
+            { editWorkout ? <Icon name='close'/> : <Icon name='edit'/>}
+          </Button> : '' }
+          { coach
+            ? <Button id='buttoncolor' floated='right' onClick={() => handleClick('edit')}>
+            { editWorkout ? <Icon name='close'/> : <Icon name='edit'/>}
+          </Button> : '' }
             {
               editWorkout && <WorkoutsForm
                 formTitle='Edit Workout'
-                {...workoutInfo}
+                {...raceWorkoutObject}
                 coach={coach}
                 athlete={athlete}
-                setWorkouts={setWorkouts}
                 setEditWorkout={setEditWorkout}
                 setRaceWorkout={setRaceWorkout}
               />}
@@ -93,9 +102,9 @@ function WorkoutCard({
 WorkoutCard.propTypes = {
   coach: PropTypes.any,
   athlete: PropTypes.any,
-  workoutInfo: PropTypes.object,
-  setWorkouts: PropTypes.func,
+  raceWorkoutObject: PropTypes.object,
   setRaceWorkout: PropTypes.func,
+  race: PropTypes.object
 };
 
 export default WorkoutCard;

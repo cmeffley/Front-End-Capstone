@@ -25,7 +25,11 @@ const NavBar = ({ coach, athlete }) => {
   const [data, setData] = useState(null);
   const [modal, setModal] = useState(false);
 
-  const modaltoggle = () => setModal(!modal);
+  const modaltoggle = () => setModal(true);
+  const closeModalToggle = () => {
+    setModal(false);
+    setCity('');
+  };
   const toggle = () => setIsOpen(!isOpen);
   const history = useHistory();
 
@@ -61,11 +65,11 @@ const NavBar = ({ coach, athlete }) => {
             />
           </ModalBody>
           <ModalFooter>
-            <Button color="secondary" onClick={modaltoggle}>Close</Button>
+            <Button color="secondary" onClick={closeModalToggle}>Close</Button>
           </ModalFooter>
         </Modal>
       </>
-      <Navbar color="dark" dark expand="md">
+      <Navbar className='navigation' dark expand="md">
         <NavbarBrand href="/">Home</NavbarBrand>
         <NavbarToggler onClick={toggle} />
         <Collapse isOpen={isOpen} navbar>
@@ -76,11 +80,8 @@ const NavBar = ({ coach, athlete }) => {
             <NavItem>
               <Link className="nav-link" to="/addrace">Add Race</Link>
             </NavItem>
-            <NavItem>
-              <Link className="nav-link" to="/workouts">Workouts</Link>
-            </NavItem>
             {/* <NavItem>
-              <Link className="nav-link" to="/quickWorkout">Quick Workouts</Link>
+              <Link className="nav-link" to="/workouts">Workouts</Link>
             </NavItem> */}
             { coach && coachOnly()}
           </Nav>
@@ -103,10 +104,11 @@ const NavBar = ({ coach, athlete }) => {
                 <Button type='submit'>Check Weather</Button>
               </Form>
             </div>
+            <div className='line'></div>
           { (coach !== null || athlete !== null)
-            && <div className='auth-btn-container'>
+            && <div>
                 {
-                  coach || athlete ? <Button color='secondary' onClick={signOutToHome}>SignOut?</Button>
+                  coach || athlete ? <Button id='authbutton' onClick={signOutToHome}>SignOut</Button>
                     : ''
                 }
               </div>

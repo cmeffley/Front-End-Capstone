@@ -14,15 +14,16 @@ function RaceScheduleView({ coach, athlete }) {
   }, []);
 
   return (
-    <div>
+    <div className='raceviewContainer'>
+      <h1 className='raceh1'>Race Schedule</h1>
       {races.map((raceInfo) => (
-        <RaceSchedule
-          key={raceInfo.firebaseKey}
-          {...raceInfo}
-          coach={coach}
-          athlete={athlete}
-          setRaces={setRaces}
-        />
+          <RaceSchedule
+            key={raceInfo.firebaseKey}
+            {...raceInfo}
+            coach={coach}
+            athlete={athlete}
+            setRaces={setRaces}
+          />
       ))}
     </div>
   );

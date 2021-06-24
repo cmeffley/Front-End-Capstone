@@ -17,7 +17,7 @@ import { getAllRaces } from '../helpers/data/raceData';
 import { seeWorkoutsForRace } from '../helpers/data/raceWorkoutsData';
 
 function WorkoutsForm({
-  coach, athlete, setWorkouts, formTitle, setRaceWorkout, setEditWorkout, ...workoutInfo
+  coach, athlete, formTitle, setRaceWorkout, setEditWorkout, ...workoutInfo
 }) {
   const [addWorkouts, setAddWorkouts] = useState({
     day: workoutInfo?.day || '',
@@ -50,8 +50,6 @@ function WorkoutsForm({
     }));
   };
 
-  // deleteWorkoutCoach(workoutInfo.firebaseKey, coach.coachUid).then(() => seeWorkoutsForRace(workoutInfo.raceId).then((workoutArray) => setRaceWorkout(workoutArray.workout)));
-
   const handleSubmit = (e) => {
     e.preventDefault();
     if (addWorkouts.firebaseKey && workoutInfo.coachUid && workoutInfo.athleteUid) {
@@ -73,7 +71,7 @@ function WorkoutsForm({
   };
 
   return (
-    <div>
+    <div className='workoutinputContainer'>
       <Form
         className='workoutInputForm'
         autoComplete='off'
@@ -97,7 +95,7 @@ function WorkoutsForm({
       <Label>Start of Workout</Label>
       <Input
         name='startDay'
-        type='text'
+        type='date'
         value={addWorkouts.startDay}
         onChange={handleInputChange}
       />
@@ -109,7 +107,7 @@ function WorkoutsForm({
       <Label>Complete Workout By</Label>
       <Input
         name='dueDay'
-        type='text'
+        type='date'
         value={addWorkouts.dueDay}
         onChange={handleInputChange}
       />
@@ -229,7 +227,8 @@ function WorkoutsForm({
             </option>)}
         </Input>
         }
-      <Button color='primary' type='submit'>Submit</Button>
+      <br/>
+      <Button id='otherbuttoncolor' type='submit'>Submit</Button>
       </Form>
     </div>
   );
@@ -239,7 +238,6 @@ WorkoutsForm.propTypes = {
   coach: PropTypes.any,
   athlete: PropTypes.any,
   workoutInfo: PropTypes.object,
-  setWorkouts: PropTypes.func,
   formTitle: PropTypes.string,
   setEditWorkout: PropTypes.func,
   setRaceWorkout: PropTypes.func
