@@ -48,7 +48,7 @@ function EditQuickWorkouts({
   };
 
   return (
-    <div>
+    <div className='quickWorkEditFormContainer'>
       <Form
         className='editQuickWorkoutForm'
         autoComplete='off'
@@ -76,8 +76,8 @@ function EditQuickWorkouts({
           value={editQuickWork.length}
           onChange={handleInputChange}
         />
-        <Button color='info' type='submit'>Submit</Button>
-        <Button color='warning' onClick={goodbyeQuickWorkout}>Delete</Button>
+        <Button id='otherbuttoncolor' type='submit'>Submit</Button>
+        <Button id='otherbuttoncolor' onClick={goodbyeQuickWorkout}>Delete</Button>
       </Form>
     </div>
   );

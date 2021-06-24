@@ -4,7 +4,7 @@ import RacesForm from '../components/RacesForm';
 
 function RacesFormView({ coach, athlete }) {
   return (
-    <div>
+    <div className='racesformContainer'>
       <RacesForm
         formTitle='Add Race'
         coach={coach}

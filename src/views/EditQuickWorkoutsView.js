@@ -11,7 +11,7 @@ function EditQuickWorkoutsView({ coach }) {
   }, []);
 
   return (
-    <div>
+    <div className='editQuickContainer'>
       <EditQuickWorkouts
         formTitle='Add New Quick Workout'
         setAddEditQuickWork={setAddEditQuickWork}

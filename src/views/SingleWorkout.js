@@ -4,8 +4,8 @@ import {
   Card,
   CardText,
   CardBody,
-  Button
 } from 'reactstrap';
+import { Button, Icon } from 'semantic-ui-react';
 import { getSingleWorkout } from '../helpers/data/workoutsData';
 
 function SingleWorkout() {
@@ -28,15 +28,16 @@ function SingleWorkout() {
   const getMotivation = motivation[Math.floor(Math.random() * motivation.length)];
 
   return (
-    <div>
-      <Button onClick={() => history.push(`/raceSchedule/${raceId}`)}>Back</Button>
-      <Card>
+    <div className='singleworkoutContainer'>
+      <Button id='buttoncolor' icon labelPosition='left' onClick={() => history.push(`/raceSchedule/${raceId}`)}>
+        <Icon name='left arrow' />Back</Button>
+      <Card className='workoutCard'>
         <CardBody>
           <CardText>Complete Workout By:<br/>
             {oneWorkout.dueDay}</CardText>
           <CardText>Discipline:  {oneWorkout.workoutType}</CardText>
           <CardText>{oneWorkout.plannedWork}</CardText>
-          <h4>{getMotivation}</h4>
+          <h4>&quot;{getMotivation}&quot;</h4>
         </CardBody>
       </Card>
     </div>

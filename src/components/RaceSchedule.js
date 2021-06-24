@@ -6,10 +6,9 @@ import {
   CardText,
   CardBody,
   CardTitle,
-  Button
 } from 'reactstrap';
+import { Button, Icon } from 'semantic-ui-react';
 import RacesForm from './RacesForm';
-// import { deleteRaceAthlete } from '../helpers/data/raceData';
 import { deleteRaceandWorkoutsCoach, deleteRaceandWorkoutsAthlete } from '../helpers/data/raceWorkoutsData';
 
 function RaceSchedule({
@@ -39,20 +38,22 @@ function RaceSchedule({
 
   return (
     <div>
-      <Card>
-        <CardTitle tag='h5'>{raceInfo.raceName}</CardTitle>
+      <Card className='raceCard'>
+        <CardTitle tag='h3'>{raceInfo.raceName}</CardTitle>
         <CardBody>
-          <CardText>{raceInfo.raceDistance}</CardText>
+          <CardText tag='h5'>{raceInfo.raceDistance}</CardText>
           <CardText>{raceInfo.raceDate}</CardText>
           <CardText><a href={raceInfo.raceLink}>Race Website</a></CardText>
-          <Button onClick={goToWorkouts}
+          <Button id='gotoworkbutton' onClick={goToWorkouts}
             disabled={new Date() > new Date(raceInfo.raceDate)}
           >See Race Workout Program</Button>
-          {coach ? <Button color='success' onClick={() => handleClick('coachDelete')}>Delete</Button>
-            : <Button color='danger' onClick={() => handleClick('athleteDelete')}>Delete</Button>}
-          <Button color='info' onClick={() => handleClick('edit')}>
-            {editRace ? 'Close Form' : 'Edit Race'}
+          <br/><br/>
+          {coach ? <Button id='buttoncolor' floated='left' icon='trash alternative' onClick={() => handleClick('coachDelete')}></Button>
+            : <Button id='buttoncolor' floated='left' icon='trash alternate' onClick={() => handleClick('athleteDelete')}></Button>}
+          <Button id='buttoncolor' floated='right' onClick={() => handleClick('edit')}>
+            {editRace ? <Icon name='close'/> : <Icon name='edit'/>}
           </Button>
+          <br/>
           {
             editRace && <RacesForm
               formTitle='Edit Race'
