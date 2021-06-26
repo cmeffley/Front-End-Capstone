@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react';
-// import PropTypes from 'prop-types';
 import { useParams } from 'react-router-dom';
 import WorkoutAverages from '../components/WorkoutAverages';
 import { seeWorkoutsForRace } from '../helpers/data/raceWorkoutsData';
@@ -41,10 +40,5 @@ function AveragesView() {
     </div>
   );
 }
-
-// AveragesView.propTypes = {
-//   coach: PropTypes.any,
-//   athlete: PropTypes.any
-// };
 
 export default AveragesView;
