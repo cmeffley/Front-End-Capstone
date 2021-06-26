@@ -100,11 +100,12 @@ body {
 }
 
 .workoutinputContainer, .racesinputContainer {
-  // border: white solid 1px;
+  border: black solid 1px;
   color: white;
   margin: auto;
   width: 50%;
   text-align: center;
+  box-shadow: 5px 5px black;
 }
 
 .quickWorkEditFormContainer {

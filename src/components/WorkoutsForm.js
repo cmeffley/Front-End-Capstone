@@ -138,7 +138,7 @@ function WorkoutsForm({
       <Label>Planned Workout</Label>
       <Input
         name='plannedWork'
-        type='text'
+        type='textarea'
         value={addWorkouts.plannedWork}
         onChange={handleInputChange}
       />

@@ -65,7 +65,7 @@ function EditQuickWorkouts({
         <Label>Description</Label>
         <Input
           name='description'
-          type='text'
+          type='textarea'
           value={editQuickWork.description}
           onChange={handleInputChange}
         />
