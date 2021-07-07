@@ -40,9 +40,11 @@ body {
   justify-content: center;
 }
 
-// .letter {
-//   transform: rotate(-180deg);
-// }
+.letter {
+  display: inline-block; 
+  font-size: 35px;
+  transform: scale(-1, 1);
+}
 
 .landingButtons {
   width: 100%;
@@ -156,4 +158,9 @@ body {
 
 #otherbuttoncolor {
   background-color: #a95e42;
+}
+
+.charts {
+  background-color: white;
+  border: black solid 1px;
 }
