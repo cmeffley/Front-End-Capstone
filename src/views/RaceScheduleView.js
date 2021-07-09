@@ -16,7 +16,7 @@ function RaceScheduleView({ coach, athlete }) {
   return (
     <div className='raceviewContainer'>
       <h1 className='raceh1'>Race Schedule</h1>
-      {races.map((raceInfo) => (
+      { races.length <= 0 ? 'No Races Yet, Please Add One' : races.map((raceInfo) => (
           <RaceSchedule
             key={raceInfo.firebaseKey}
             {...raceInfo}

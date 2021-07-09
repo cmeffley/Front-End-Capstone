@@ -38,7 +38,7 @@ function RaceWorkoutsView({ coach, athlete }) {
       <h6>Workout Program starts: {race.startDate} and finishes on {race.endDate}</h6>
       <Button id='otherbuttoncolor' onClick={() => history.push(`/raceSchedule/${race.firebaseKey}/averages`)}>See Training Data</Button>
       <div>
-        { raceWorkout.length <= 0 ? 'No Workout Created' : raceWorkout.map((raceWorkoutObject) => <WorkoutCard
+        { raceWorkout.length <= 0 ? 'No Workouts Created. Your Coach will add some soon.' : raceWorkout.map((raceWorkoutObject) => <WorkoutCard
             key={raceWorkoutObject.firebaseKey}
             {...raceWorkoutObject}
             race={race}
