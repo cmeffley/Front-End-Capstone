@@ -46,7 +46,7 @@ This application is where a coach and athlete work together to create a race sch
 ### Screenshot
 ![2021-06-25](https://user-images.githubusercontent.com/76795299/123496302-67328500-d5f5-11eb-974e-ae9357739caf.png)
 
-### [Loom Walkthrough Video](https://www.loom.com/share/8d7e7e2d79ba4558915a977c85287f0f)
+### [Loom Walkthrough Video](https://www.loom.com/share/e27762a6f451421a8bd31e2b766fbb82)
 #### API Example call to Openweathermap:
 `https://api.openweathermap.org/data/2.5/weather?q=Chattanooga&appid={{api}}&units=imperial`
 
